@@ -326,7 +326,15 @@ class Config {
             }
         }
 
-        file_put_contents($_SERVER['DOCUMENT_ROOT']."/_includes/config.json",json_encode($this->Default));
+        $cfgPath = $_SERVER['DOCUMENT_ROOT']."/_includes/config.json";
+        $cfgDir = dirname($cfgPath);
+        if (!is_dir($cfgDir)) {
+            @mkdir($cfgDir, 0777, true);
+        }
+        $written = @file_put_contents($cfgPath, json_encode($this->Default), LOCK_EX);
+        if ($written === false) {
+            error_log("Config.class: failed to write config.json to $cfgPath");
+        }
 
         $this->Config = $this->Default;
         return false;

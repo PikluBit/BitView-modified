@@ -57,11 +57,15 @@ if ($_GET["t"] == "Search All") {
 
     $Amount             = new Videos($DB, $_USER);
     $Amount->SELECT     = "count(url) as amount";
-    $Amount->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) COLLATE utf8mb4_general_ci OR videos.uploaded_by = :SEARCH COLLATE utf8mb4_general_ci OR videos.title COLLATE utf8mb4_general_ci LIKE '%:SEARCH%' OR videos.description COLLATE utf8mb4_general_ci LIKE '%:SEARCH%')".$WHEN.$TYPE.$LENGTH;
+    $Amount->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) OR videos.uploaded_by = :SEARCH OR videos.title LIKE :SEARCH_LIKE OR videos.description LIKE :SEARCH_LIKE)".$WHEN.$TYPE.$LENGTH;
     $Amount->JOIN    = "INNER JOIN users ON users.username = videos.uploaded_by";
-    $Amount->Execute    = [":SEARCH" => $Query];
+    $Amount->Execute    = [":SEARCH" => $Query, ":SEARCH_LIKE" => "%".$Query."%"];
     $Amount->get();
-    $_PAGINATION->total($Amount::$Videos[0]["amount"]);
+    $amount_total = 0;
+    if (!empty($Amount::$Videos) && isset($Amount::$Videos[0]["amount"])) {
+        $amount_total = (int)$Amount::$Videos[0]["amount"];
+    }
+    $_PAGINATION->total($amount_total);
 
     if (!isset($_GET["order"])) {
         $Order_By = "((user_relevance * 1000) + (title_relevance * 100) 
@@ -85,30 +89,28 @@ if ($_GET["t"] == "Search All") {
         exit();
     }
     $Videos             = new Videos($DB, $_USER);
-    $Videos->SELECT     = "videos.*, (videos.uploaded_by = :SEARCH) as user_relevance, (title COLLATE utf8mb4_general_ci LIKE '%:SEARCH%') as title_relevance, videos.tags LIKE ('%:SEARCH%') as tag_relevance, (MATCH(tags) AGAINST (:SEARCH)) as tag_relevance_2, (videos.description COLLATE utf8mb4_general_ci LIKE '%:SEARCH%') as description_relevance";
-    $Videos->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) COLLATE utf8mb4_general_ci OR videos.uploaded_by = :SEARCH COLLATE utf8mb4_general_ci OR videos.title COLLATE utf8mb4_general_ci LIKE '%:SEARCH%' OR videos.description COLLATE utf8mb4_general_ci LIKE '%:SEARCH%')".$WHEN.$TYPE.$LENGTH;
+    $Videos->SELECT     = "videos.*, (videos.uploaded_by = :SEARCH) as user_relevance, (title LIKE :SEARCH_LIKE) as title_relevance, (videos.tags LIKE :SEARCH_LIKE) as tag_relevance, (MATCH(tags) AGAINST (:SEARCH)) as tag_relevance_2, (videos.description LIKE :SEARCH_LIKE) as description_relevance";
+    $Videos->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) OR videos.uploaded_by = :SEARCH OR videos.title LIKE :SEARCH_LIKE OR videos.description LIKE :SEARCH_LIKE)".$WHEN.$TYPE.$LENGTH;
     $Videos->JOIN    = "INNER JOIN users ON users.username = videos.uploaded_by";
     $Videos->ORDER_BY   = $Order_By;
-    $Videos->Execute    = [":SEARCH" => $Query];
+    $Videos->Execute    = [":SEARCH" => $Query, ":SEARCH_LIKE" => "%".$Query."%"];
     $Videos->LIMIT      = $_PAGINATION;
     $Videos->get();
 
     $Videos_Amount      = $Videos::$Amount;
 
-    if ($Videos::$Videos) {
-        $Videos = $Videos->fix_values(true, true);
+    // Always convert to an array for the template; fix_values returns [] when no videos
+    $Videos = $Videos->fix_values(true, true);
 
-        if ($Videos_Amount > 1) {
-            $Related_Tags = [];
-
-            foreach($Videos as $Video_Tags1) {
-                foreach ($Video_Tags1["tags"] as $Value) {
-                    $Related_Tags[] = $Value;
-                }
+    if (!empty($Videos) && $Videos_Amount > 1) {
+        $Related_Tags = [];
+        foreach($Videos as $Video_Tags1) {
+            foreach ($Video_Tags1["tags"] as $Value) {
+                $Related_Tags[] = $Value;
             }
-            shuffle($Related_Tags);
-            $Related_Tags = array_splice($Related_Tags, -32);
         }
+        shuffle($Related_Tags);
+        $Related_Tags = array_splice($Related_Tags, -32);
     }
     $Total_Amount = $_PAGINATION->Total;
 }
@@ -143,11 +145,15 @@ elseif (isset($_GET["t"]) && $_GET["t"] == "Search Videos") {
 
     $Amount             = new Videos($DB, $_USER);
     $Amount->SELECT     = "count(url) as amount";
-    $Amount->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) COLLATE utf8mb4_general_ci OR videos.uploaded_by = :SEARCH COLLATE utf8mb4_general_ci OR videos.title COLLATE utf8mb4_general_ci LIKE '%:QUERY%' OR videos.description COLLATE utf8mb4_general_ci LIKE '%:QUERY%')".$WHEN.$TYPE.$LENGTH;
+    $Amount->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) OR videos.uploaded_by = :SEARCH OR videos.title LIKE :SEARCH_LIKE OR videos.description LIKE :SEARCH_LIKE)".$WHEN.$TYPE.$LENGTH;
     $Amount->JOIN    = "INNER JOIN users ON users.username = videos.uploaded_by";
-    $Amount->Execute    = [":SEARCH" => $Query];
+    $Amount->Execute    = [":SEARCH" => $Query, ":SEARCH_LIKE" => "%".$Query."%"];
     $Amount->get();
-    $_PAGINATION->total($Amount::$Videos[0]["amount"]);
+    $amount_total = 0;
+    if (!empty($Amount::$Videos) && isset($Amount::$Videos[0]["amount"])) {
+        $amount_total = (int)$Amount::$Videos[0]["amount"];
+    }
+    $_PAGINATION->total($amount_total);
 
     if (!isset($_GET["order"])) {
         $Order_By = "((user_relevance * 1000) + (title_relevance * 100) 
@@ -171,30 +177,28 @@ elseif (isset($_GET["t"]) && $_GET["t"] == "Search Videos") {
         exit();
     }
     $Videos             = new Videos($DB, $_USER);
-    $Videos->SELECT     = "videos.*, (videos.uploaded_by = :SEARCH) as user_relevance, (title COLLATE utf8mb4_general_ci LIKE '%:SEARCH%') as title_relevance, videos.tags LIKE ('%:SEARCH%') as tag_relevance, (MATCH(tags) AGAINST (:SEARCH)) as tag_relevance_2, (videos.description COLLATE utf8mb4_general_ci LIKE '%:SEARCH%') as description_relevance";
-    $Videos->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) COLLATE utf8mb4_general_ci OR videos.uploaded_by = :SEARCH COLLATE utf8mb4_general_ci OR videos.title COLLATE utf8mb4_general_ci LIKE '%:SEARCH%' OR videos.description COLLATE utf8mb4_general_ci LIKE '%:SEARCH%')".$WHEN.$TYPE.$LENGTH;
+    $Videos->SELECT     = "videos.*, (videos.uploaded_by = :SEARCH) as user_relevance, (title LIKE :SEARCH_LIKE) as title_relevance, (videos.tags LIKE :SEARCH_LIKE) as tag_relevance, (MATCH(tags) AGAINST (:SEARCH)) as tag_relevance_2, (videos.description LIKE :SEARCH_LIKE) as description_relevance";
+    $Videos->WHERE_C    = " AND (MATCH(tags) AGAINST (:SEARCH) OR videos.uploaded_by = :SEARCH OR videos.title LIKE :SEARCH_LIKE OR videos.description LIKE :SEARCH_LIKE)".$WHEN.$TYPE.$LENGTH;
     $Videos->JOIN    = "INNER JOIN users ON users.username = videos.uploaded_by";
     $Videos->ORDER_BY   = $Order_By;
-    $Videos->Execute    = [":SEARCH" => $Query];
+    $Videos->Execute    = [":SEARCH" => $Query, ":SEARCH_LIKE" => "%".$Query."%"];
     $Videos->LIMIT      = $_PAGINATION;
     $Videos->get();
 
     $Videos_Amount      = $Videos::$Amount;
 
-    if ($Videos::$Videos) {
-        $Videos = $Videos->fix_values(true, true);
+    // Always convert to an array for the template; fix_values returns [] when no videos
+    $Videos = $Videos->fix_values(true, true);
 
-        if ($Videos_Amount > 1) {
-            $Related_Tags = [];
-
-            foreach($Videos as $Video_Tags1) {
-                foreach ($Video_Tags1["tags"] as $Value) {
-                    $Related_Tags[] = $Value;
-                }
+    if (!empty($Videos) && $Videos_Amount > 1) {
+        $Related_Tags = [];
+        foreach($Videos as $Video_Tags1) {
+            foreach ($Video_Tags1["tags"] as $Value) {
+                $Related_Tags[] = $Value;
             }
-            shuffle($Related_Tags);
-            $Related_Tags = array_splice($Related_Tags, -32);
         }
+        shuffle($Related_Tags);
+        $Related_Tags = array_splice($Related_Tags, -32);
     }
     $Total_Amount = $_PAGINATION->Total;
 }

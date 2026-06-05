@@ -30,7 +30,7 @@
         </div>
     </div>
 <?php if (isset($_SESSION["notification_msg"])) { require_once "error_message.php"; } // else { echo '<div class="confirmBox" style="background-color: #cfeeb2 !important">BitView will be undergoing scheduled maintenance, starting 7:00 pm PDT.</div>'; } ?>
-<?php if (!isset($_COOKIE["lang"]) and !str_starts_with((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], "en-US") and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php") or !isset($_COOKIE["lang"]) and substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) != "en-US" and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php")) : ?>
+<?php if (!isset($_COOKIE["lang"]) and !str_starts_with(($GLOBALS['http_accept'] ?? ''), "en-US") and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 5).".lang.php") or !isset($_COOKIE["lang"]) and substr(($GLOBALS['http_accept'] ?? ''), 0, 2) != "en-US" and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 2).".lang.php")) : ?>
 <div id="default-language-box">
         <div id="default-language-top">
             <div id="default-language-translated">
@@ -43,7 +43,7 @@
                     <p class="errorParagraph"><?= $LANGS['languagesuggestiondesc2'] ?></p>
                 <div style="padding-left: 350px;">
                     <div style="width: 250px;">
-                        <a href="/?hl=<?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php")) : ?><?= substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) ?><?php else : ?><?= substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ?><?php endif ?>" class="action-button">
+                        <a href="/?hl=<?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 5).".lang.php")) : ?><?= substr(($GLOBALS['http_accept'] ?? ''), 0, 5) ?><?php else : ?><?= substr(($GLOBALS['http_accept'] ?? ''), 0, 2) ?><?php endif ?>" class="action-button">
                             <span class="action-button-text"><?= $LANGS['accept'] ?></span>
                         </a>
                             <a href="/?hl=en-US" class="edit-button">
@@ -64,7 +64,7 @@
                     <p class="errorParagraph">Click "OK" to accept this setting, or click "Cancel" to view the site in English.</p>
                 <div style="padding-left: 350px;">
                     <div style="width: 250px;">
-                        <a href="/?hl=<?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php")) : ?><?= substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) ?><?php else : ?><?= substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) ?><?php endif ?>" class="action-button">
+                        <a href="/?hl=<?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 5).".lang.php")) : ?><?= substr(($GLOBALS['http_accept'] ?? ''), 0, 5) ?><?php else : ?><?= substr(($GLOBALS['http_accept'] ?? ''), 0, 2) ?><?php endif ?>" class="action-button">
                             <span class="action-button-text">OK</span>
                         </a>
                             <a href="/?hl=en-US" class="edit-button">

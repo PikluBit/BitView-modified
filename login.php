@@ -10,18 +10,8 @@ if (!$_CONFIG->Config["login"]) { header("location: /"); exit(); }
 $Failed_Attempts = $DB->execute("SELECT count(*) as amount FROM failed_login_attempts WHERE ip_address = :IP AND date >= NOW() - INTERVAL 10 MINUTE",true, [":IP" => $_SESSION['ip']])["amount"];
 
 if ($Failed_Attempts >= 3) {
-    $captcha = $OG_POST["h-captcha-response"];
-    $secretKey = "0x4AEC6A2B9b460aB43248ffB92e3D16ca9c456Ad0";
-
-    $response = file_get_contents("https://api.hcaptcha.com/siteverify?secret=$secretKey&response=$captcha");
-    $responseKeys = json_decode($response,true);
-
-    if($responseKeys["success"]==true) {
-       $captcha_solved = 1;
-    } else {
-       $captcha_solved = 0;
-       //$captcha_solved = 1;
-    }
+    // Captcha verification disabled for local/XAMPP development
+    $captcha_solved = 1;
 }
 
 if ($Failed_Attempts >= 5) {

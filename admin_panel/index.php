@@ -498,8 +498,18 @@ if (
         $_CONFIG->Config["profiles"] = $Profiles;
         $_CONFIG->Config["videos"]   = $Videos;
 
-        file_put_contents($_SERVER['DOCUMENT_ROOT']."/_includes/config.json", json_encode($_CONFIG->Config));
-        notification("Config has been saved!","/admin_panel/?page=config", "cfeeb2"); exit();
+        $cfgPath = $_SERVER['DOCUMENT_ROOT']."/_includes/config.json";
+        $cfgDir = dirname($cfgPath);
+        if (!is_dir($cfgDir)) {
+            @mkdir($cfgDir, 0777, true);
+        }
+        $bytes = @file_put_contents($cfgPath, json_encode($_CONFIG->Config), LOCK_EX);
+        if ($bytes === false) {
+            notification("Failed to save config file (permission error).","/admin_panel/?page=config", "ffcccc");
+        } else {
+            notification("Config has been saved!","/admin_panel/?page=config", "cfeeb2");
+        }
+        exit();
     }
 
     if (isset($_POST["save_text"])) {
@@ -824,8 +834,18 @@ elseif ($_GET["page"] == "stats") {
     //AVERAGE VIEWS
     $AvgViews = $DB->execute("SELECT round(avg(views)) as amount FROM videos",true)['amount'];
 }
-require("../a/simple-php-captcha.php");
-$_SESSION['captcha'] = simple_php_captcha();
+// Load captcha helper if available, but avoid fatal errors when GD is missing.
+try {
+    require_once("../a/simple-php-captcha.php");
+    if (function_exists('gd_info')) {
+        $_SESSION['captcha'] = simple_php_captcha();
+    } else {
+        $_SESSION['captcha'] = ['code' => '', 'image_src' => ''];
+    }
+} catch (Throwable $e) {
+    // If captcha generation fails, fall back gracefully for admin pages.
+    $_SESSION['captcha'] = ['code' => '', 'image_src' => ''];
+}
 
 
 

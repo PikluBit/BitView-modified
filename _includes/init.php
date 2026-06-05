@@ -1,5 +1,17 @@
 <?php
-    error_reporting(0);
+// Default: suppress errors. Enable detailed errors on local hosts for debugging.
+error_reporting(0);
+ini_set('display_errors','0');
+ini_set('display_startup_errors','0');
+$host = $_SERVER['HTTP_HOST'] ?? '';
+$remote = $_SERVER['REMOTE_ADDR'] ?? '';
+if (str_contains((string) $host, 'localhost') || str_contains((string) $host, '.local') || in_array($remote, ['127.0.0.1', '::1'])) {
+    error_reporting(E_ALL);
+    ini_set('display_errors','1');
+    ini_set('display_startup_errors','1');
+    ini_set('log_errors','1');
+    ini_set('error_log', $_SERVER['DOCUMENT_ROOT'].'/php-error.log');
+}
 
 // Load composer packages
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
@@ -38,9 +50,12 @@ if (isset($_POST)) {
 
 // Prevent requests unless they come from CloudFlare
 if (!isset($_SERVER['TERM'])) {
-	if (!isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
-		die();
-	}
+    if (!isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        // Not behind CloudFlare (local/dev). Fall back to REMOTE_ADDR so
+        // the app can run on local servers like XAMPP. This preserves the
+        // expected `HTTP_CF_CONNECTING_IP` variable used elsewhere.
+        $_SERVER['HTTP_CF_CONNECTING_IP'] = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    }
 }
 
 
@@ -49,21 +64,22 @@ if (!isset($_SERVER['TERM'])) {
 ==========================================================================*/
 
 //LOAD LANGUAGE FILES
+$http_accept = (string) ($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
 if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
-  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
-  $LangCode = $_COOKIE["lang"];
+    include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
+    $LangCode = $_COOKIE["lang"];
 }
-elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-  $LangCode = substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5);
+elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept, 0, 5) . ".lang.php")) {
+    include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept, 0, 5) . ".lang.php";
+    $LangCode = substr($http_accept, 0, 5);
 }
-elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-  $LangCode = substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept, 0, 2) . ".lang.php")) {
+    include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept, 0, 2).".lang.php";
+    $LangCode = substr($http_accept, 0, 2);
 }
 else {
-  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
-  $LangCode = 'en-US';
+    include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
+    $LangCode = 'en-US';
 }
 
 //AUTOLOAD CLASSES

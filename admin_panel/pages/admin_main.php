@@ -272,43 +272,43 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
             <table width="100%" border="0px">
                 <tr>
                     <td width="105"><b>Users:</b></td>
-                    <td><?= number_format($Stats2["all_users"]) ?> (<b><?= number_format($Stats3["banned_users"]) ?></b>)</td>
+                    <td><?= number_format($Stats2["all_users"] ?? 0) ?> (<b><?= number_format($Stats3["banned_users"] ?? 0) ?></b>)</td>
                 </tr>
                 <tr>
                     <td><b>Videos:</b></td>
-                    <td><?= number_format($Stats["all_videos"]) ?></td>
+                    <td><?= number_format($Stats["all_videos"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Views:</b></td>
-                    <td><?= number_format($Stats["all_views"]) ?></td>
+                    <td><?= number_format($Stats["all_views"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Comments:</b></td>
-                    <td><?= number_format($Stats["all_comments"]) ?></td>
+                    <td><?= number_format($Stats["all_comments"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Favorites:</b></td>
-                    <td><?= number_format($Stats["all_favorites"]) ?></td>
+                    <td><?= number_format($Stats["all_favorites"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Ratings:</b></td>
-                    <td><?= number_format($Ratings) ?></td>
+                    <td><?= number_format($Ratings ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Friends:</b></td>
-                    <td><?= number_format($Friends) ?></td>
+                    <td><?= number_format($Friends ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Subs:</b></td>
-                    <td><?= number_format($Subscriptions) ?></td>
+                    <td><?= number_format($Subscriptions ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Bulletins:</b></td>
-                    <td><?= number_format($Bulletins + $Bulletins_2) ?></td>
+                    <td><?= number_format((($Bulletins ?? 0) + ($Bulletins_2 ?? 0))) ?></td>
                 </tr>
                 <tr>
                     <td><b>Videos Converting:</b></td>
-                    <td><?= number_format($ConvertStat) ?></td>
+                    <td><?= number_format($ConvertStat ?? 0) ?></td>
                 </tr>
             </table>
         </div>

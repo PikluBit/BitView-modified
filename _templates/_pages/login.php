@@ -1,5 +1,4 @@
-<script src="https://js.hcaptcha.com/1/api.js"
-        async defer></script>
+<!-- hCaptcha script removed for local development -->
 <style>
     .hr {
         height: 1px;
@@ -195,12 +194,7 @@
                                         <td class="loginFormLabel">&nbsp;</td>
                                         <td>
                                                 <input type="submit" name="signIn" value="<?= $LANGS['login'] ?>" onclick="document.getElementById('loginForm').submit();">
-                                            <?php if ($Failed_Attempts >= 3) : ?>
-                                    <tr>
-                                        <td></td>
-                                        <td><div class="h-captcha" data-sitekey="6ac0d643-6eca-444d-a6d9-274f2de3918d"></div></td>
-                                    </tr>
-                                    <?php endif ?>
+                                            <!-- hCaptcha widget removed for local development -->
                                             <input type="hidden" name="log_in" value="Log In">
                                         </td>
                                     </tr>

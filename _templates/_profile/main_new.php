@@ -25,7 +25,7 @@
 <div id="channel-body" class="jsloaded">
     <?php if($_PROFILE->Info["is_partner"] and $_PROFILE->Info["c_banner_image"]): ?>
 <div class="partnerBanner">
-<?php if ($_PROFILE->Info["banner_map"]): ?>
+<?php if (!empty($_PROFILE->Info["banner_map"])): ?>
 <map id="imgmap">
         <?php
         $config_bmap = HTMLPurifier_Config::createDefault();
@@ -921,8 +921,8 @@
 <?php require_once "_templates/_profile/profile_modules/profile_l.php" ?>
 <?php if($_PROFILE->Info["is_partner"] AND $_PROFILE->Info["c_sideimage"]): ?>
     <div class="profile-banner-box" id="side_column_image">
-    <?php if ($_PROFILE->Info["sideimage_map"]): ?>
-	    <map id="imgmap_side">
+    <?php if (!empty($_PROFILE->Info["sideimage_map"])): ?>
+    	<map id="imgmap_side">
 		<?php
 		require_once $_SERVER['DOCUMENT_ROOT']."/_includes/_classes/HTMLPurifier/HTMLPurifier.auto.php";
 		$config_bmap = HTMLPurifier_Config::createDefault();
@@ -951,9 +951,9 @@
 		$area->excludes = ['area' => true];
 		$purifier_bmap = new HTMLPurifier($config_bmap);
 
-		$banner_map = $purifier_bmap->purify(htmlspecialchars_decode((string) $_PROFILE->Info["banner_map"]));
-		?>
-		<?= $banner_map ?>
+        $side_map = $purifier_bmap->purify(htmlspecialchars_decode((string) $_PROFILE->Info["sideimage_map"]));
+        ?>
+        <?= $side_map ?>
 		</map>
 		<img usemap="#imgmap_side" src="<?= cache_bust($_PROFILE->Info["c_sideimage"]) ?>" width="300">
     <?php elseif ($_PROFILE->Info["sideimage_link"]): ?>

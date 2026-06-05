@@ -28,19 +28,27 @@ $Validation     = $_GUMP->run($_POST);
 if ($Validation) {
     $URL = $_VIDEO->URL;
     $HTML = htmlspecialchars_decode((string) $Validation['content']);
-    if (file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/u/ann/".$URL.".xml", $HTML)) {
-        }
-    if ($HTML !== "delete") {
-        if (file_put_contents($_SERVER['DOCUMENT_ROOT'] . "/u/ann/".$URL.".xml", $HTML)) {
-            die(json_encode(["response" => "success"]));
-        }
-        else {
+
+    $annDir = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'u' . DIRECTORY_SEPARATOR . 'ann';
+    $annPath = $annDir . DIRECTORY_SEPARATOR . $URL . '.xml';
+
+    // Ensure annotations directory exists
+    if (!is_dir($annDir)) {
+        if (!@mkdir($annDir, 0777, true) && !is_dir($annDir)) {
             die(json_encode(["response" => "error"]));
         }
     }
+
+    if ($HTML !== "delete") {
+        $bytes = @file_put_contents($annPath, $HTML, LOCK_EX);
+        if ($bytes === false) {
+            die(json_encode(["response" => "error"]));
+        }
+        die(json_encode(["response" => "success"]));
+    }
     elseif ($HTML === "delete") {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/u/ann/".$URL.".xml")) {
-            if (@unlink($_SERVER['DOCUMENT_ROOT'] . "/u/ann/".$URL.".xml")) {
+        if (file_exists($annPath)) {
+            if (@unlink($annPath)) {
                 die(json_encode(["response" => "success"]));
             }
             else {

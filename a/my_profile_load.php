@@ -325,7 +325,7 @@ if ($_USER->Info["videos"] > 0) {
 </tr>
 <tr>
 <td align="right"><span style="font-weight:bold"><?= $LANGS['bannerimagemap'] ?>:</span></td>
-<td><textarea name="banner_map" maxlength="1024" style="width: 300px;resize:vertical;height: 60px;margin-top: 4px;font-family: Arial, sans-serif;font-size: 12px;"><?= $_USER->Info["banner_map"] ?></textarea><br><a href="#" onclick="document.getElementById('format-info').classList.toggle('hid');return false;"><?= $LANGS['formatinfo'] ?></a></td>
+<td><textarea name="banner_map" maxlength="1024" style="width: 300px;resize:vertical;height: 60px;margin-top: 4px;font-family: Arial, sans-serif;font-size: 12px;"><?= $_USER->Info["banner_map"] ?? '' ?></textarea><br><a href="#" onclick="document.getElementById('format-info').classList.toggle('hid');return false;"><?= $LANGS['formatinfo'] ?></a></td>
 </tr>
 <tr class="hid" id="format-info">
 <td align="right"></td>
@@ -349,7 +349,7 @@ if ($_USER->Info["videos"] > 0) {
 </tr>
 <tr>
 <td align="right"><span style="font-weight:bold"><?= $LANGS['sideimagemap'] ?>:</span></td>
-<td><textarea name="side_map" maxlength="1024" style="width: 300px;resize:vertical;height: 60px;margin-top: 4px;font-family: Arial, sans-serif;font-size: 12px;"><?= $_USER->Info["sideimage_map"] ?></textarea><br><a href="#" onclick="document.getElementById('format-info').classList.toggle('hid');return false;"><?= $LANGS['formatinfo'] ?></a></td>
+<td><textarea name="side_map" maxlength="1024" style="width: 300px;resize:vertical;height: 60px;margin-top: 4px;font-family: Arial, sans-serif;font-size: 12px;"><?= $_USER->Info["sideimage_map"] ?? '' ?></textarea><br><a href="#" onclick="document.getElementById('format-info').classList.toggle('hid');return false;"><?= $LANGS['formatinfo'] ?></a></td>
 </tr>
 </table>
 </div>

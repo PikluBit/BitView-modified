@@ -2239,7 +2239,7 @@ class upload {
                     if ($this->uploaded) {
                         $this->log .= '- requires a temp file ... ';
                         $hash = $this->temp_dir() . md5($file . random_int(1, 1000));
-                        if ($data && file_put_contents($hash, $data)) {
+                        if ($data && file_put_contents($hash, $data, LOCK_EX)) {
                             $this->file_src_pathname = $hash;
                             $this->log .= ' file created<br />';
                             $this->log .= '&nbsp;&nbsp;&nbsp;&nbsp;temp file is: ' . $this->file_src_pathname . '<br />';

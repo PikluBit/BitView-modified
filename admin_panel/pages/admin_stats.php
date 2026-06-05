@@ -250,75 +250,75 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
             <table width="100%" border="0px">
                 <tr>
                     <td width="50%"><b>Users:</b></td>
-                    <td><?= number_format($Stats2["all_users"]) ?> (<b><?= number_format($Stats3["banned_users"]) ?></b>)</td>
+                    <td><?= number_format($Stats2["all_users"] ?? 0) ?> (<b><?= number_format($Stats3["banned_users"] ?? 0) ?></b>)</td>
                 </tr>
                 <tr>
                     <td><b>Videos:</b></td>
-                    <td><?= number_format($Stats["all_videos"]) ?></td>
+                    <td><?= number_format($Stats["all_videos"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Playlists:</b></td>
-                    <td><?= number_format($Playlists) ?></td>
+                    <td><?= number_format($Playlists ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Views:</b></td>
-                    <td><?= number_format($Stats["all_views"]) ?></td>
+                    <td><?= number_format($Stats["all_views"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Comments:</b></td>
-                    <td><?= number_format($Stats["all_comments"]) ?></td>
+                    <td><?= number_format($Stats["all_comments"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Channel Comments:</b></td>
-                    <td><?= number_format($Channel_Comments) ?></td>
+                    <td><?= number_format($Channel_Comments ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Comment Votes:</b></td>
-                    <td><?= number_format($Comment_Votes) ?></td>
+                    <td><?= number_format($Comment_Votes ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Video Responses:</b></td>
-                    <td><?= number_format($Responses) ?></td>
+                    <td><?= number_format($Responses ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Favorites:</b></td>
-                    <td><?= number_format($Stats["all_favorites"]) ?></td>
+                    <td><?= number_format($Stats["all_favorites"] ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Ratings:</b></td>
-                    <td><?= number_format($Ratings) ?></td>
+                    <td><?= number_format($Ratings ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Friends:</b></td>
-                    <td><?= number_format($Friends) ?></td>
+                    <td><?= number_format($Friends ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Subscriptions:</b></td>
-                    <td><?= number_format($Subscriptions) ?></td>
+                    <td><?= number_format($Subscriptions ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Bulletins:</b></td>
-                    <td><?= number_format($Bulletins + $Bulletins_2) ?></td>
+                    <td><?= number_format((($Bulletins ?? 0) + ($Bulletins_2 ?? 0))) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Groups:</b></td>
-                    <td><?= number_format($Groups) ?></td>
+                    <td><?= number_format($Groups ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Messages:</b></td>
-                    <td><?= number_format($Messages) ?></td>
+                    <td><?= number_format($Messages ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Linked Videos:</b></td>
-                    <td><?= number_format($Links) ?></td>
+                    <td><?= number_format($Links ?? 0) ?></td>
                 </tr>
                 <tr>
                     <td><b>Total Searches:</b></td>
-                    <td><?= number_format($Searches) ?> <span style="font-size: 10px;color:#666">(since October 9th, 2023)</span></td>
+                    <td><?= number_format($Searches ?? 0) ?> <span style="font-size: 10px;color:#666">(since October 9th, 2023)</span></td>
                 </tr>
                 <tr>
                     <td><b>Average Views per Video:</b></td>
-                    <td><?= (number_format($AvgViews)) ?></td>
+                    <td><?= number_format($AvgViews ?? 0) ?></td>
                 </tr>
             </table>
         </div>
@@ -328,6 +328,13 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
     <div class="a_box">
         <div class="a_box_title">Server Information</div>
         <div style="max-height:500px;overflow-y:auto">
+            <?php
+            $__disk_total = @disk_total_space("/var/www");
+            $__disk_free = @disk_free_space("/var/www");
+            $__disk_total_gb = $__disk_total ? ($__disk_total / 1048576 / 1024) : 0;
+            $__disk_used_gb = ($__disk_total && $__disk_free) ? (($__disk_total - $__disk_free) / 1048576 / 1024) : 0;
+            $__disk_pct = ($__disk_total_gb > 0) ? (($__disk_used_gb / $__disk_total_gb) * 100) : 0;
+            ?>
             <table width="100%">
                 <tr>
                     <td style="width:100px"><b>PHP Version:</b></td>
@@ -355,7 +362,7 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
                 </tr>
                 <tr>
                     <td><b>Disk Used:</b></td>
-                    <td><?= round((@disk_total_space("/var/www") - @disk_free_space("/var/www")) / 1048576 / 1024,2) ?>GB / <?= round(@disk_total_space("/var/www") / 1048576 / 1024,2) ?>GB</td>
+                    <td><?= number_format($__disk_used_gb, 2) ?>GB / <?= number_format($__disk_total_gb, 2) ?>GB</td>
                 </tr>
                 <tr><style>.barempty {
                         height: 8px;
@@ -371,7 +378,7 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
                         float: left;
                     }
                     </style>
-                    <td colspan="2"><div class="barempty"><div class="barfull" style="width: <?= (((@disk_total_space("/var/www") - @disk_free_space("/var/www")) / 1048576 / 1024) / round(@disk_total_space("/var/www") / 1048576 / 1024)) * 100 ?>%;"></div></div></td>
+                    <td colspan="2"><div class="barempty"><div class="barfull" style="width: <?= max(0, min(100, round($__disk_pct, 2))) ?>%;"></div></div></td>
                 </tr>
             </table>
         </div>

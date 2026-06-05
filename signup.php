@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT']."/_includes/init.php";
-exit("disabled");
+// Signup enabled for local/XAMPP development — removed hard exit("disabled").
 //PERMISSIONS AND REQUIREMENTS
 ////USER MUST NOT BE LOGGED IN
 ////SIGN UP MUST BE ENABLED
@@ -32,8 +32,7 @@ if (isset($_POST["email"])) {
         "country"           => "required",
         "birthday_mon"      => "required",
         "birthday_day"      => "required",
-        "birthday_yr"       => "required",
-        "g-recaptcha-response" => "required"
+        "birthday_yr"       => "required"
     ]);
 
     $_GUMP->filter_rules([
@@ -45,19 +44,8 @@ if (isset($_POST["email"])) {
     $Sign_Up_Errors = [];
 
     if ($Validation) {
-        $captcha = $OG_POST["h-captcha-response"] ?? '';
-        $secretKey = "0x4AEC6A2B9b460aB43248ffB92e3D16ca9c456Ad0";
-
-        $response = file_get_contents("https://api.hcaptcha.com/siteverify?secret=$secretKey&response=$captcha");
-        $responseKeys = json_decode($response,true) ?? ['success' => false];
-
-        if($responseKeys["success"]==true) {
-            $captcha_solved = 1;
-        } else {
-           $captcha_solved = 1;
-           //$captcha_solved = 1;
-
-        }
+        // Captcha verification disabled for local/XAMPP development
+        $captcha_solved = 1;
         $Username   = $Validation["username"];
         $Email      = $Validation["email"];
         $Country    = $Validation["country"];
@@ -71,7 +59,7 @@ if (isset($_POST["email"])) {
 
         if (isDisposableEmail($Email)) { notification("Disposable emails aren't allowed on BitView!","/signup"); exit(); }
         if (isTorRequest()) { notification($LANGS['torbrowser'],"/signup"); exit(); }
-        if ($captcha_solved==0) { notification($LANGS['captchaincorrect'],"/signup"); exit(); }
+        // captcha_solved is forced to 1 for local development
 
         $spamopts = [
             "http" => [

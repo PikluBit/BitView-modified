@@ -4,8 +4,8 @@ class DB {
 
     private static $Connect = [
         "host"      => "localhost",
-        "database"  => "",
-        "username"  => "",
+        "database"  => "bitview",
+        "username"  => "root",
         "password"  => "",
         "charset"   => "utf8mb4"
     ];
@@ -14,12 +14,17 @@ class DB {
 
     function __construct(bool $Show_Errors = true) {
         try {
-            $this->Connection = new PDO('mysql:host='.$this::$Connect["host"].';dbname='.$this::$Connect["database"].';charset='.$this::$Connect["charset"],$this::$Connect["username"],$this::$Connect["password"], [
-                PDO::ATTR_EMULATE_PREPARES      => true,
-                PDO::ATTR_PERSISTENT            => false,
-            ]);
-             $this->Connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-            
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES => true,
+                PDO::ATTR_PERSISTENT => false,
+            ];
+            // Ensure the connection uses utf8mb4 and the expected collation
+            if (defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+                $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES {$this::$Connect['charset']} COLLATE utf8mb4_general_ci";
+            }
+
+            $this->Connection = new PDO('mysql:host='.$this::$Connect["host"].';dbname='.$this::$Connect["database"].';charset='.$this::$Connect["charset"],$this::$Connect["username"],$this::$Connect["password"], $options);
             return true;
         }
         catch (PDOException) { return false; }
@@ -39,45 +44,63 @@ class DB {
     }
 
     public function execute(string $SQL, bool $Single = false, array $Execute = [], bool $Log = true) {
-        //if ($Log) { $this->logQuery($SQL, $Execute); }
-        $Query = $this->Connection->prepare($SQL);
-        $Query->execute($Execute);
+        try {
+            //if ($Log) { $this->logQuery($SQL, $Execute); }
+            $Query = $this->Connection->prepare($SQL);
+            $Query->execute($Execute);
 
-        $this->Row_Num = $Query->rowCount();
+            $this->Row_Num = $Query->rowCount();
 
-        if ($this->Row_Num == 0) {
+            if ($this->Row_Num == 0) {
+                return [];
+            } elseif ($Single) {
+                return @$Query->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return @$Query->fetchAll(PDO::FETCH_ASSOC);
+            }
+        } catch (PDOException $e) {
+            $msg = "DB->execute error: " . $e->getMessage() . " | SQL: " . $SQL . " | Params: " . json_encode($Execute) . "\n";
+            error_log("[".date('d-M-Y H:i:s T')."] " . $msg, 3, $_SERVER['DOCUMENT_ROOT'] . '/php-error.log');
             return [];
-        } elseif ($Single) {
-            return @$Query->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return @$Query->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
     public function modify(string $SQL, array $Execute = [], bool $Log = true) {
-        //if ($Log) { $this->logQuery($SQL, $Execute); }
-        $Query = $this->Connection->prepare($SQL);
-        $Query->execute($Execute);
+        try {
+            //if ($Log) { $this->logQuery($SQL, $Execute); }
+            $Query = $this->Connection->prepare($SQL);
+            $Query->execute($Execute);
 
-        $this->Row_Num = $Query->rowCount();
+            $this->Row_Num = $Query->rowCount();
 
-        if ($this->Row_Num > 0) {
-            return true;
+            if ($this->Row_Num > 0) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            $msg = "DB->modify error: " . $e->getMessage() . " | SQL: " . $SQL . " | Params: " . json_encode($Execute) . "\n";
+            error_log("[".date('d-M-Y H:i:s T')."] " . $msg, 3, $_SERVER['DOCUMENT_ROOT'] . '/php-error.log');
+            return false;
         }
-        return false;
     }
 
     public function exists($Value, $Column, $Table) {
         $SQL = "SELECT $Column FROM $Table WHERE $Column = :VALUE";
         $Execute = [":VALUE" => $Value];
         //$this->logQuery($SQL, $Execute);
-        $Query = $this->Connection->prepare($SQL);
-        $Query->execute($Execute);
+        try {
+            $Query = $this->Connection->prepare($SQL);
+            $Query->execute($Execute);
 
-        if ($Query->rowCount() > 0) {
-            $Query = $Query->fetch(PDO::FETCH_ASSOC);
-            return $Query[$Column];
-        } else {
+            if ($Query->rowCount() > 0) {
+                $Query = $Query->fetch(PDO::FETCH_ASSOC);
+                return $Query[$Column];
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            $msg = "DB->exists error: " . $e->getMessage() . " | SQL: " . $SQL . " | Params: " . json_encode($Execute) . "\n";
+            error_log("[".date('d-M-Y H:i:s T')."] " . $msg, 3, $_SERVER['DOCUMENT_ROOT'] . '/php-error.log');
             return false;
         }
     }

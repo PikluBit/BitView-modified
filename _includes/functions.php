@@ -1,6 +1,34 @@
 <?php
 use function PHP81_BC\strftime;
 
+// Multibyte-compatible trim helpers (restore missing helpers used across templates)
+function mb_trim($string, $charlist = '\\s') {
+    $s = (string) $string;
+    if ($charlist === '\\s') {
+        return preg_replace('/^\s+|\s+$/u', '', $s);
+    }
+    $cl = preg_quote($charlist, '/');
+    return preg_replace('/^['.$cl.']+|['.$cl.']+$/u', '', $s);
+}
+
+function mb_ltrim($string, $charlist = '\\s') {
+    $s = (string) $string;
+    if ($charlist === '\\s') {
+        return preg_replace('/^\s+/u', '', $s);
+    }
+    $cl = preg_quote($charlist, '/');
+    return preg_replace('/^['.$cl.']+/u', '', $s);
+}
+
+function mb_rtrim($string, $charlist = '\\s') {
+    $s = (string) $string;
+    if ($charlist === '\\s') {
+        return preg_replace('/\s+$/u', '', $s);
+    }
+    $cl = preg_quote($charlist, '/');
+    return preg_replace('/['.$cl.']+$/u', '', $s);
+}
+
 function notification(string $Message,$Redirect, string $Color = "FFA3A3") {
     $_SESSION["notification_msg"] = $Message;
     $_SESSION["notification_clr"] = $Color;
@@ -10,18 +38,19 @@ function notification(string $Message,$Redirect, string $Color = "FFA3A3") {
     return true;
 }
 function get_time_ago($time) {
-    if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-	}
-	else {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
-	}
+        $http_accept_local = $GLOBALS['http_accept'] ?? '';
+        if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2).".lang.php";
+        }
+        else {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
+        }
     $time = time() - strtotime((string) $time);
     $time = ($time < 1)? 1 : $time;
     $tokens =  [
@@ -166,18 +195,19 @@ function show_ratings($Ratings,$width,$height) {
 }
 
 function number_format_lang($String) {
-    if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-	}
-	else {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
-	}
+        $http_accept_local = $GLOBALS['http_accept'] ?? '';
+        if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2).".lang.php";
+        }
+        else {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
+        }
     if ($LANGS['numberformat'] == 1) {
         return number_format($String);
     }
@@ -405,18 +435,19 @@ function short_body(string $string, int $length = 256) : string {
 
 function load_thumbnail($url) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/_includes/_classes/Video.class.php'; 
-    if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-	}
-	else {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
-	}
+        $http_accept_local = $GLOBALS['http_accept'] ?? '';
+        if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php";
+        }
+        elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2) . ".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2).".lang.php";
+        }
+        else {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
+        }
     global $DB;
     global $_USER;
     $_VIDEO = new Video($url,$DB);
@@ -443,15 +474,16 @@ function load_thumbnail($url) {
 }
 function videoEntry($url, $width, $history = false) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/_includes/_classes/Video.class.php'; 
+    $http_accept_local = $GLOBALS['http_accept'] ?? '';
     if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
 	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
 	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-	}
+    elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php")) {
+      include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php";
+    }
+    elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2) . ".lang.php")) {
+      include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2).".lang.php";
+    }
 	else {
 	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
 	}
@@ -517,15 +549,16 @@ function videoEntry($url, $width, $history = false) {
 }
 function videoEntryGrid($url, $uploader = true, $history = false) {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/_includes/_classes/Video.class.php'; 
+    $http_accept_local = $GLOBALS['http_accept'] ?? '';
     if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"].".lang.php")) {
 	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . $_COOKIE["lang"] . ".lang.php";
 	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5) . ".lang.php";
-	}
-	elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) . ".lang.php")) {
-	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-	}
+    elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php")) {
+      include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 5) . ".lang.php";
+    }
+    elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2) . ".lang.php")) {
+      include $_SERVER['DOCUMENT_ROOT'] . "/lang/" . substr($http_accept_local, 0, 2).".lang.php";
+    }
 	else {
 	  include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
 	}

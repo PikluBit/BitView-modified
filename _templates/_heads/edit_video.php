@@ -17,10 +17,10 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8433080377364721" crossorigin="anonymous"></script>
 <?php if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".$_COOKIE["lang"].".lang.php")) : ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/".$_COOKIE["lang"].".lang.php" ?>
-<?php elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php")) : ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php" ?>
-<?php elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php")) : ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php" ?>
+<?php elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 5).".lang.php")) : ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 5).".lang.php" ?>
+<?php elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 2).".lang.php")) : ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr(($GLOBALS['http_accept'] ?? ''), 0, 2).".lang.php" ?>
 <?php else : ?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php" ?>
 <?php endif ?>

@@ -89,15 +89,16 @@ class Pagination
 
     // added by vistafan12 (for new show_pages layout) new_show_pages_videos
     public function new_show_pages_videos($var1,$Clean = false,$Ajax = true) {
+        $http_accept_local = $GLOBALS['http_accept'] ?? '';
         if (isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".$_COOKIE["lang"].".lang.php")) {
-        include $_SERVER['DOCUMENT_ROOT'] . "/lang/".$_COOKIE["lang"].".lang.php";
-    } elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php")) {
-        include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5).".lang.php";
-    } elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php")) {
-        include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr((string) $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2).".lang.php";
-    } else {
-        include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
-    }
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/".$_COOKIE["lang"].".lang.php";
+        } elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr($http_accept_local, 0, 5).".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr($http_accept_local, 0, 5).".lang.php";
+        } elseif (!isset($_COOKIE["lang"]) and file_exists($_SERVER['DOCUMENT_ROOT'] . "/lang/".substr($http_accept_local, 0, 2).".lang.php")) {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/".substr($http_accept_local, 0, 2).".lang.php";
+        } else {
+            include $_SERVER['DOCUMENT_ROOT'] . "/lang/en-US.lang.php";
+        }
             $this->Total_Pages = ceil($this->Total / $this->To);
 
             if ($this->Current_Page > $this->Total_Pages and $this->Current_Page !== 1) {

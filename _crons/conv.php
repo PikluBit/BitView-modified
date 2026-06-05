@@ -58,7 +58,9 @@ while ($All_Query > 0) {
 
                 $Log = $Video->Thumbnail($Thumbnail_Sec, $URL);
                 if ($Log !== true) {
-                    file_put_contents($Video_File . '.log', $Log, FILE_APPEND);
+                    if (@file_put_contents($Video_File . '.log', $Log, FILE_APPEND | LOCK_EX) === false) {
+                        error_log("conv.php: failed to write log to {$Video_File}.log");
+                    }
                 }
 
                 unlink($Video_File);
@@ -72,7 +74,9 @@ while ($All_Query > 0) {
             else {
                 $Attempts += 1;
                 if ($Attempts === 2) {
-                    file_put_contents($Video_File . '.log', $Log, FILE_APPEND);
+                    if (@file_put_contents($Video_File . '.log', $Log, FILE_APPEND | LOCK_EX) === false) {
+                        error_log("conv.php: failed to write log to {$Video_File}.log");
+                    }
                     //unlink($Video_File);
                     $DB->modify("DELETE FROM videos_uploads WHERE vid = :URL", [":URL" => $URL]);
                     $DB->modify("DELETE FROM converting WHERE url = :URL", [":URL" => $URL]);
@@ -120,7 +124,9 @@ while ($All_Query > 0) {
 
                 $Log = $Video->Thumbnail($Thumbnail_Sec, $URL);
                 if ($Log !== true) {
-                    file_put_contents($Video_File . '.log', $Log, FILE_APPEND);
+                    if (@file_put_contents($Video_File . '.log', $Log, FILE_APPEND | LOCK_EX) === false) {
+                        error_log("conv.php: failed to write log to {$Video_File}.log");
+                    }
                 }
 
                 unlink($Video_File);
@@ -134,7 +140,9 @@ while ($All_Query > 0) {
             else {
                 $Attempts += 1;
                 if ($Attempts === 2) {
-                    file_put_contents($Video_File . '.log', $Log);
+                    if (@file_put_contents($Video_File . '.log', $Log, LOCK_EX) === false) {
+                        error_log("conv.php: failed to write log to {$Video_File}.log");
+                    }
                     //unlink($Video_File);
                     $DB->modify("DELETE FROM videos_uploads WHERE vid = :URL", [":URL" => $URL]);
                     $DB->modify("DELETE FROM converting WHERE url = :URL", [":URL" => $URL]);

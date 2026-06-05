@@ -1,0 +1,29 @@
+# Enable rewriting for extensionless and friendly URLs
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+
+# Friendly user profile URLs: /user/username and /user/username/page
+RewriteRule ^user/([^/]+)/?$ /profile.php?user=$1 [L,QSA]
+RewriteRule ^user/([^/]+)/([^/]+)/?$ /profile.php?user=$1&page=$2 [L,QSA]
+
+# My account friendly URLs: /my_account and /my_account/<page>
+RewriteRule ^my_account/?$ /my_profile.php [L,QSA]
+RewriteRule ^my_account/([^/]+)/?$ /my_profile.php?page=$1 [L,QSA]
+
+# Serve existing files/directories as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# If a corresponding .php file exists, serve it (e.g., /about -> /about.php)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Fallback: route everything else to index.php (preserve query)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L,QSA]
+
+# Default DirectoryIndex
+DirectoryIndex index.php index.html

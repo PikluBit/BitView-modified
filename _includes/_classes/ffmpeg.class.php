@@ -18,8 +18,11 @@ class ffmpeg
 
     public function __construct()
     {
-        $this->FFMPEG = "ffmpeg";
-        $this->FFPROBE = "ffprobe";
+        // Allow overriding executable paths via environment variables (FFMPEG_PATH, FFPROBE_PATH)
+        $ffmpeg_env = getenv('FFMPEG_PATH');
+        $ffprobe_env = getenv('FFPROBE_PATH');
+        $this->FFMPEG = $ffmpeg_env ? $ffmpeg_env : 'ffmpeg';
+        $this->FFPROBE = $ffprobe_env ? $ffprobe_env : 'ffprobe';
     }
 
     public function Get_Length($Echoseconds = null)

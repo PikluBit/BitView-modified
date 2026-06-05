@@ -1,5 +1,4 @@
-<script src="https://js.hcaptcha.com/1/api.js"
-        async defer></script>
+<!-- hCaptcha script removed for local development -->
 <script>
     function checkTerms() {
         if (document.getElementById('terms').checked == true) {
@@ -362,16 +361,7 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="loginFormLabel">
-                                            <div id="verificationLabel" name="verificationLabel">
-                                                <label for="verificationResponse"><?= $LANGS['captcha'] ?>:</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="h-captcha" data-sitekey="6ac0d643-6eca-444d-a6d9-274f2de3918d"></div>
-                                        </td>
-                                    </tr>
+                                    <!-- captcha removed for local development -->
 
                                     <tr>
                                         <td class="loginFormLabel" valign="top"><div id="termsOfUseLabel" name="termsOfUseLabel">
