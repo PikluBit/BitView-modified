@@ -44,7 +44,7 @@
 <meta name="twitter:title" content="<?= $_PAGE["Title"] ?>">
 <meta name="twitter:description" content="<?= $_PAGE["Description"] ?>">
 <meta name="twitter:image" content="<?= "https://".$_SERVER["HTTP_HOST"] ?>/u/thmp/<?= $_VIDEO->URL ?>.jpg">
-<meta name="twitter:player" content="<?= "https://".$_SERVER["HTTP_HOST"] ?>/embed?v=<?= $_VIDEO->URL ?>">
+<meta name="twitter:player" content="<?= get_base_url() ?>/embed?v=<?= $_VIDEO->URL ?>">
 <meta name="twitter:player:width" content="640">
 <meta name="twitter:player:height" content="360">
 
