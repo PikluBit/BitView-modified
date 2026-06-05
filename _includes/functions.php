@@ -1,6 +1,12 @@
 <?php
 use function PHP81_BC\strftime;
 
+function get_base_url() {
+    $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'www.bitview.net';
+    return $scheme . '://' . $host;
+}
+
 // Multibyte-compatible trim helpers (restore missing helpers used across templates)
 function mb_trim($string, $charlist = '\\s') {
     $s = (string) $string;

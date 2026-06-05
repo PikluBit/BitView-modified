@@ -733,7 +733,7 @@ function set_theme_obj(e) {
         <table width="100%"><tbody><tr>
                 <td width="50%" style="padding: 10px 10px 7px 10px;border-right:1px dotted #bbb" valign="top">
                         <div class="settings_label">URL:</div>
-                        <div class="settings_control"><a href="/user/<?= $_USER->Username ?>">http://www.bitview.net/user/<?= $_USER->Username ?></a></div>
+                        <div class="settings_control"><a href="/user/<?= $_USER->Username ?>"><?= get_base_url() ?>/user/<?= $_USER->Username ?></a></div>
                         <div class="settings_separator">&nbsp;</div>
                         <div class="settings_label"><?= $LANGS['title'] ?>:</div>
                         <div class="settings_control"><input name="title" value="<?= $_PROFILE->Info['i_title'] ?>" id="channel_title_input" value="" style="width:200px" maxlength="50"></div>

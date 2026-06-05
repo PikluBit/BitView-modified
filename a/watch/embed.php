@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT']."/_includes/init.php";
 
 <div class="watch-actions-embed" id="watch-actions-embed-inside">
     <div class="close-button" onclick="hideDiv(this);"></div>
-<input id="embed_code" name="embed_code" type="text" value='<iframe id="embedplayer" src="https://www.bitview.net/embed?v=<?= $_GET["url"] ?>" width="425" height="344" allowfullscreen scrolling="off" frameborder="0"></iframe>' onclick="javascript:document.embedForm.embed_code.focus();document.embedForm.embed_code.select();" readonly=""><br>
+<input id="embed_code" name="embed_code" type="text" value='<iframe id="embedplayer" src="<?= get_base_url() ?>/embed?v=<?= $_GET["url"] ?>" width="425" height="344" allowfullscreen scrolling="off" frameborder="0"></iframe>' onclick="javascript:document.embedForm.embed_code.focus();document.embedForm.embed_code.select();" readonly=""><br>
 <img src="/img/pixel.gif" class="embed-sprite" id="watch-customize-embed-theme-preview">
 <p id="watch-customize-embed-desc" style="padding: 0 6px; height: 64px;">
     <?= $LANGS['customizedesc'] ?>

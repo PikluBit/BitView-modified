@@ -1022,7 +1022,7 @@ function playVideo(from,num,url) {
                     hdsrc: 1 == t.hd ? "/videos/" + t.file_url + ".720.mp4" : "/videos/" + t.file_url + ".mp4",
                     preview: "/u/thmp/" + url + ".jpg",
                     duration: t.length,
-                    videoUrl: "https://www.bitview.net/watch?v=" + url,
+                    videoUrl: window.location.origin + "/watch?v=" + url,
                     autoplay: !0
                 });
             selectPanel('info',url);

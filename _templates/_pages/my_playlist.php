@@ -173,7 +173,7 @@ address {
         <div id="vm-playlist-share-subpanel" class="vm-full-width tab-selected">
             <div id="vm-playlist-share-notifs" class="vm-playlist-notifs"></div>
                 <p><?= $LANGS['playlisturl'] ?? '' ?></p>
-                <p><input id="vm-playlist-share-url" class="textbox" type="text" value="http://www.bitview.net/view_playlist?id=<?= $This_Playlist['id'] ?>" readonly="readonly" onclick="this.select();"></p>
+                <p><input id="vm-playlist-share-url" class="textbox" type="text" value="<?= get_base_url() ?>/view_playlist?id=<?= $This_Playlist['id'] ?>" readonly="readonly" onclick="this.select();"></p>
             </div>
         <div class="vm-clear">&nbsp;</div>
       </div>

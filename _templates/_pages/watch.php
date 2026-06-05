@@ -298,18 +298,18 @@
 <div id="watch-actions-share" class="hid">
     <div class="watch-actions-share">
         <div class="close-button" onclick="hideDiv(this);"></div>
-    <input class="watch-actions-share-input" type="text" value="http://www.bitview.net/watch?v=<?= $_VIDEO->Info["url"] ?>"><br>
-    <button class="watch-share-button yt-uix-button" href="mailto:?subject=Check%20this%20video%20out%20--%20<?= $_VIDEO->Info['title'] ?>&body=http://www.bitview.net/watch?v=<?= $_VIDEO->Info["url"] ?>" type="button">
+    <input class="watch-actions-share-input" type="text" value="<?= get_base_url() ?>/watch?v=<?= $_VIDEO->Info["url"] ?>"><br>
+    <button class="watch-share-button yt-uix-button" href="mailto:?subject=Check%20this%20video%20out%20--%20<?= $_VIDEO->Info['title'] ?>&body=<?= get_base_url() ?>/watch?v=<?= $_VIDEO->Info["url"] ?>" type="button">
         <img class="yt-uix-button-icon-watch-share icn_share_promoted_email" src="/img/pixel.gif" alt="">
     <span class="yt-uix-button-content">Email</span>
     </button>
-    <button class="watch-share-button yt-uix-button" onclick="window.open('https://www.facebook.com/sharer/sharer?u=http://www.bitview.net/watch?v=<?= $_VIDEO->Info["url"] ?>','','height=500,width=400'); return false;" type="button">
+    <button class="watch-share-button yt-uix-button" onclick="window.open('https://www.facebook.com/sharer/sharer?u=<?= get_base_url() ?>/watch?v=<?= $_VIDEO->Info["url"] ?>','','height=500,width=400'); return false;" type="button">
         <img class="yt-uix-button-icon-watch-share icn_share_promoted_facebook" src="/img/pixel.gif" alt="">
     <span class="yt-uix-button-content">Facebook</span> 
     </button>
-    <?php $bwittertext = "Check this video out -- ".$_VIDEO->Info["title"]." http://www.bitview.net/watch?v=".$_VIDEO->Info["url"]; ?>
+    <?php $bwittertext = "Check this video out -- ".$_VIDEO->Info["title"]." ".get_base_url()."/watch?v=".$_VIDEO->Info["url"]; ?>
     <button type="button" class="watch-share-button yt-uix-button" onclick="window.open('http://blips.club/share?title=<?= urlencode($bwittertext) ?>','','height=500,width=600'); return false;"><img class="yt-uix-button-icon-watch-share icn_share_promoted_blips" src="/img/pixel.gif" alt=""> <span class="yt-uix-button-content">Blips</span></button>
-    <button class="watch-share-button yt-uix-button" onclick="window.open('http://www.reddit.com/submit?url=http://www.bitview.net/watch?v=<?= $_VIDEO->Info["url"] ?>','','height=500,width=800'); return false;" type="button">
+    <button class="watch-share-button yt-uix-button" onclick="window.open('http://www.reddit.com/submit?url=<?= get_base_url() ?>/watch?v=<?= $_VIDEO->Info["url"] ?>','','height=500,width=800'); return false;" type="button">
         <img class="yt-uix-button-icon-watch-share icn_share_promoted_reddit" src="/img/pixel.gif" alt="">
     <span class="yt-uix-button-content">reddit</span>
         

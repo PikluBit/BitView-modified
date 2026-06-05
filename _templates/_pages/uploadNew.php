@@ -741,9 +741,9 @@ table.claimproof td.radio {
             var videoId = data.videoId;
             
             document.getElementById('file-url').innerHTML = videoId;
-            document.getElementById("video-sharing-url").value = "http://www.bitview.net/watch?v=" + videoId;
+            document.getElementById("video-sharing-url").value = window.location.origin + "/watch?v=" + videoId;
             document.getElementById("video-embed-url").value =
-                '<iframe id="embedplayer" src="http://www.bitview.net/embed?v=' + videoId + 
+                '<iframe id="embedplayer" src="' + window.location.origin + '/embed?v=' + videoId + 
                 '" width="427" height="343" allowfullscreen scrolling="off" frameborder="0"></iframe>';
         });     
         BitViewUploader.upload();
@@ -757,8 +757,8 @@ table.claimproof td.radio {
         
         if (BitViewUploader.videoId_ != null) {
             ajax("/a/uploadPrepare", function(r) {
-                    document.getElementById("video-sharing-url").value = "http://www.bitview.net/watch?v="+r;
-                    document.getElementById("video-embed-url").value = '<iframe id="embedplayer" src="http://www.bitview.net/embed?v='+r+'" width="427" height="343" allowfullscreen scrolling="off" frameborder="0"></iframe>'
+                    document.getElementById("video-sharing-url").value = window.location.origin + "/watch?v="+r;
+                    document.getElementById("video-embed-url").value = '<iframe id="embedplayer" src="'+window.location.origin+'/embed?v='+r+'" width="427" height="343" allowfullscreen scrolling="off" frameborder="0"></iframe>'
                 }, {
                     videoId: BitViewUploader.videoId_,
                     title: document.getElementsByClassName('video-settings-title')[0].value,

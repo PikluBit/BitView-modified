@@ -360,7 +360,7 @@ function updateEmbed(e) {
         else if (size == "larger-box") {
         var sizevar = 'width="640" height="505"';
         }
-        embed.value = '<iframe id="embedplayer" src="http://www.bitview.net/embed?v=' + video_url + '' + colorvars +'" '+ sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
+        embed.value = '<iframe id="embedplayer" src="' + window.location.origin + '/embed?v=' + video_url + '' + colorvars +'" '+ sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
     }
     else if (e.id.slice(0,18) == "watch-embed-size-r") {
         var size = e.id.slice(23);
@@ -383,7 +383,7 @@ function updateEmbed(e) {
         _gel("watch-embed-size-"+size+"-box").classList.add("selected");
         var currentcolor = document.getElementsByClassName("selected")[0].id.slice(18);
         if (currentcolor == "blank") {
-            embed.value = '<iframe id="embedplayer" src="http://www.bitview.net/embed?v=' + video_url + '' + sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
+            embed.value = '<iframe id="embedplayer" src="' + window.location.origin + '/embed?v=' + video_url + '' + sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
         }
         else {
             if (currentcolor == "storm") {
@@ -410,7 +410,7 @@ function updateEmbed(e) {
             else if (currentcolor == "rubyred") {
                 var colorvars = "&bg=red&bt=white"
             }
-            embed.value = '<iframe id="embedplayer" src="http://www.bitview.net/embed?v=' + video_url + '' + colorvars +'" '+ sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
+            embed.value = '<iframe id="embedplayer" src="' + window.location.origin + '/embed?v=' + video_url + '' + colorvars +'" '+ sizevar +' allowfullscreen scrolling="off" frameborder="0"></iframe>';
         }
     }
 }

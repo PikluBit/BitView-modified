@@ -208,7 +208,7 @@
         <?= $LANGS['videoaddeddesc'] ?>
         <div style="margin:25px 0 25px;text-align:center">
             <div style="color:green;margin:0 0 4px 0;font-weight:bold"><?= $LANGS['sharelink'] ?></div>
-            <input type="text" readonly="readonly" id="link" onclick="document.getElementById(this.id).select();document.getElementById(this.id).focus()" value="http://www.bitview.net/watch?v=<?= $Main_URL ?>" size="40" />
+            <input type="text" readonly="readonly" id="link" onclick="document.getElementById(this.id).select();document.getElementById(this.id).focus()" value="<?= get_base_url() ?>/watch?v=<?= $Main_URL ?>" size="40" />
             <br /><br /><br />
             <div style="color:green;margin:0 0 4px 0;font-weight:bold"><?= $LANGS['embedlink'] ?></div>
             <input type="text" readonly="readonly" id="embed" onclick="document.getElementById(this.id).select();document.getElementById(this.id).focus()" value='<iframe id="embedplayer" src="/embed?v=<?= $Main_URL ?>" width="427" height="343" allowfullscreen scrolling="off" frameborder="0"></iframe>' size="50" />

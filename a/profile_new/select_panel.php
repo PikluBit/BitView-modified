@@ -204,15 +204,15 @@ favorite_video('<?= $URL ?>');
 <div id="playnav-video-panel-inner" class="border-box-sizing">
 <div id="playnav-panel-share">
     <div class="inner-box-colors" style="font-size:12px">
-    <b><a href="http://www.reddit.com/submit?url=http://www.bitview.net/watch?v=<?= $URL ?>" target="_blank" onclick="">Reddit</a></b>&emsp;
-    <b><a href="https://www.facebook.com/sharer/sharer?u=http://www.bitview.net/watch?v=<?= $URL ?>" target="_blank" onclick="">Facebook</a></b>&emsp;
-    <?php $bwittertext = "Check this video out -- ".$_VIDEO->Info["title"]." http://www.bitview.net/watch?v=".$URL; ?>
+    <b><a href="http://www.reddit.com/submit?url=<?= get_base_url() ?>/watch?v=<?= $URL ?>" target="_blank" onclick="">Reddit</a></b>&emsp;
+    <b><a href="https://www.facebook.com/sharer/sharer?u=<?= get_base_url() ?>/watch?v=<?= $URL ?>" target="_blank" onclick="">Facebook</a></b>&emsp;
+    <?php $bwittertext = "Check this video out -- ".$_VIDEO->Info["title"]." ".get_base_url()."/watch?v=".$URL; ?>
     <b><a href="https://blips.club/share?title=<?= urlencode($bwittertext) ?>" target="_blank" onclick="">Blips</a></b>&emsp;
     <div class="spacer">&nbsp;</div>
     <div class="scrollbox-separator">
     <div class="outer-box-bg-as-border"></div>
     </div>
-    <b><?= $LANGS['pastethislink'] ?>: </b><input name="video_link" id="watch-url-field" type="text" value="http://www.bitview.net/watch?v=<?= $URL ?>" style="width: 250px;" readonly="">
+    <b><?= $LANGS['pastethislink'] ?>: </b><input name="video_link" id="watch-url-field" type="text" value="<?= get_base_url() ?>/watch?v=<?= $URL ?>" style="width: 250px;" readonly="">
     </div>
 </div>
 </div>

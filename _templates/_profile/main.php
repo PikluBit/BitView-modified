@@ -412,7 +412,7 @@ function subscribe() {
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="marB3 alignC"><a href="/user/<?= $_PROFILE->Username ?>">http://www.bitview.net/user/<?= $_PROFILE->Username ?></a></div>
+                    <div class="marB3 alignC"><a href="/user/<?= $_PROFILE->Username ?>"><?= get_base_url() ?>/user/<?= $_PROFILE->Username ?></a></div>
                     <div class="share-box" id="sharing_opt" style="display: none;">
                                 <div class="box-title" style="float: left">
                                     <div class="title-text"><?= $LANGS['sharingoptions'] ?></div>
@@ -421,18 +421,18 @@ function subscribe() {
                                 <div style="padding: 0 5px;"><?= $LANGS['sharingoptionsdesc'] ?></div>
                                 <div style="padding: 15px 5px 0 5px;"><?= $LANGS['sharingoptions1'] ?>
                     <form name="urlForm">
-                    <input name="video_link" type="text" value="http://www.bitview.net/user/<?= $_PROFILE->Username ?>" class="vidURLField" onclick="javascript:document.urlForm.video_link.focus();document.urlForm.video_link.select();" readonly="true" size="35" style="width:255px">
+                    <input name="video_link" type="text" value="<?= get_base_url() ?>/user/<?= $_PROFILE->Username ?>" class="vidURLField" onclick="javascript:document.urlForm.video_link.focus();document.urlForm.video_link.select();" readonly="true" size="35" style="width:255px">
                     </form>
                                 </div>
                                 <div style="padding: 15px 0 5px 5px;">
                                 <?= $LANGS['sharingoptions2'] ?>
-                                <a href="mailto:/?subject=You%20have%20received%20a%BitView%20channel%21&amp;body=http%3A//www.bitview.net/user/<?= $_PROFILE->Username ?>"><?= $LANGS['clicktosend'] ?></a>
+                                <a href="mailto:/?subject=You%20have%20received%20a%BitView%20channel%21&amp;body=<?= rawurlencode(get_base_url() . "/user/" . $_PROFILE->Username) ?>"><?= $LANGS['clicktosend'] ?></a>
                                 </div>
                             </div>
                     <div class="igoogleEmbed" style="margin-bottom: 2px;">
         <div style="margin-top: 12px;"><?= $LANGS['channelembed'] ?>:</div>
         <form action="" name="embedForm" id="embedForm">
-        <input id="embed_code" name="embed_code" type="text" value='<iframe frameborder="0" scrolling="no" src="http://www.bitview.net/embeds/videos?user=<?= $_PROFILE->Username ?>" width="400" height="460"></iframe>' onclick="javascript:document.embedForm.embed_code.focus();document.embedForm.embed_code.select();" readonly=""></div>
+        <input id="embed_code" name="embed_code" type="text" value='<iframe frameborder="0" scrolling="no" src="<?= get_base_url() ?>/embeds/videos?user=<?= $_PROFILE->Username ?>" width="400" height="460"></iframe>' onclick="javascript:document.embedForm.embed_code.focus();document.embedForm.embed_code.select();" readonly=""></div>
     </form>
     </div>
                 </td>                                               
