@@ -1,0 +1,23 @@
+.hd_menu {
+    padding-bottom: 3px
+}
+.hd_menu div {
+    display: inline;
+}
+.hd_menu .sel {
+    position: relative;
+    top: 2px;
+}
+.search_header {
+    margin: -10px 0 0 !important;
+}
+.uws > div {
+    width: 30%;
+}
+.videos_box_sct {
+    display: inline;
+}
+.hd_nav {
+    position: relative;
+    bottom: 8px
+}

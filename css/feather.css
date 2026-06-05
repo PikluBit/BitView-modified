@@ -1,0 +1,161 @@
+/* Watch page feather mode for TestView, made by Kazuya and Herotrap */
+#masthead * {
+	border-radius: 0!important;
+}
+.action-button-text {
+    border-radius: 0!important;
+}
+.logo img {
+    width: 110px;
+    height: 40px;
+    object-fit: cover;
+    object-position: top;
+}
+a.yt-button.yt-button-urgent.yt-upload-feather {
+    background: #fed81c url(/img/master-vfl87445.png) repeat-x center -2400px;
+    height: 32px;
+    line-height: 32px;
+}
+#masthead .logo {
+	margin: 0 8px 0 0;
+}
+#masthead-nav-user a {
+    margin: 0;
+}
+#masthead-container {
+	border-bottom: none;
+}
+#masthead-search {
+    border: 0;
+    background: #fff;
+}
+.yt-upload-feather {
+    padding: 10px 6px;
+}
+#masthead .search-term, #searchField {
+    border: 1px solid #ccc;
+    width: 300px;
+    padding: 4px;
+}
+.watch-video-added {
+    font-weight: bold !important;
+}
+#expand-content-desc {
+    display: block !important;
+}
+#watch-channel-vids-div {
+    background: #dddddd;
+    border: 1px solid #aaa;
+    padding: 0;
+}
+.watch-comment-entry {
+    border: 0px;
+    padding-top: 0px;
+}
+#watch-channel-subscribe {
+    float: right;
+    width: 116px;
+    clear: inline-end;
+}
+#watch-channel-stats {
+    text-align: right;
+    float: right;
+    padding: 8px 6px 6px 14px;
+    font-size: 18px;
+}
+html>body #watch-channel-stats {
+    width: auto;
+}
+#watch-channel-icon {
+    margin-top: 10px;
+    margin-left: 8px;
+    float: left;
+}
+.watch-channel-subscribe {
+    float: right;
+    margin-top: 0;
+    height: 23px;
+    padding-top: 0;
+}
+#watch-channel-vids-top {
+    padding: 0 5px;
+}
+html>body #watch-video-details-inner {
+    padding: 0 9px;
+    margin-top: 8px;
+}
+#watch-embed-div label, #watch-url-div label {
+    text-align: left;
+    color: #000;
+}
+#watch-embed-div {
+    border-top: 0;
+}
+#watch-video-details .expand-content {
+    position: relative;
+    padding-bottom: 0;
+}
+#watch-rating-div #ratingMessage {
+    color: #999;
+    font-size: 12px!important;
+}
+#watch-embed-div label, #watch-url-div label {
+    width: 57px;
+}
+#watch-tab-favorite {
+    font-weight: bold;
+}
+#watch-tab-flag {
+    font-weight: bold;
+    margin-left: 16px;
+    text-decoration: none!important;
+}
+#watch-action-favorite-link, #watch-action-flag-link {
+    text-decoration: none;
+}
+.watch-comment-time {
+    color: #999;
+}
+.small-expand-panel {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+.video-time {
+    text-align: left;
+    margin-top: -26px;
+    margin-right: 0;
+    height: 14px;
+    font-family: Arial,sans-serif;
+    white-space: nowrap;
+}
+#video-run-time {
+    padding: 4px;
+    line-height: 8px;
+    font-weight: normal;
+    font-size: 10px;
+    border-radius: 0;
+    height: 14px;
+    opacity: 1;
+    display: inline-block;
+}
+.v90WrapperInner {
+    border: 0;
+}
+.v90WrapperOuter {
+    border: 0;
+}
+.watch-discoverbox-grid-view .watch-discoverbox, .watch-discoverbox-list-view .watch-discoverbox, #watch-related-vids-body {
+    padding-top: 0;
+    padding-left: 0;
+    overflow: auto;
+}
+.watch-discoverbox-entry {
+    height: 54px;
+    margin-bottom: 0;
+    padding: 6px;
+}
+.viewCount {
+    color: #000;
+    font-size: 11px;
+}

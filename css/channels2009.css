@@ -1,0 +1,271 @@
+td.padB5 .vimg70 {
+    width: 60px;
+    height: 45px;
+    border-color: #999!important;
+}
+.profileEmbedVideoInfo .vtitle {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.user-thumb-large img {
+    height: 60px !important;
+    width: 60px !important;
+    margin-left: 0;
+}
+.marB5 a {
+    font-size: 8pt;
+}
+#baseDiv {
+    position: relative;
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.profileLeftCol {
+    width: 298px;
+}
+.channelLeftColumn .headerBox {
+    width: 288px;
+}
+.channelRightColumn {
+    float: right;
+    width: 640px;
+}
+.channelContainer {
+    width: 960px;
+}
+.profileRightCol {
+    width: 638px;
+}
+.channelRightColumn .headerBox {
+    width: 628px;
+}
+.commentsTableFull .user-thumb-large {
+    height: 46px;
+    width: 46px;
+}
+.commentsTableFull .user-thumb-large img {
+    height: 46px !important;
+    width: 46px !important;
+    margin-left: 0;
+}
+td[width="85%"] {
+    width: 90%;
+}
+.smallText[style="font-weight: bold; padding-bottom: 12px;"] {
+    padding-bottom: 5px!important;
+}
+tr.commentsTableFull td, tr.bulletinTable td {
+    border-bottom-style: solid!important;
+    border-bottom-width: 1px!important;
+}
+tr.commentsTableFull td {
+    padding: 5px;
+    padding-bottom: 15px;
+}
+#commentsBoxRight {
+    text-align: left;
+    padding: 5px;
+    width: 628px;
+}
+div[style="padding: 10px 0px; text-align: center;"] {
+    padding-bottom: 0!important;
+}
+.padL3 br:first-of-type {
+    display: none;
+}
+.padL3 img {
+    width: 12px;
+    height: 12px;
+    margin-right: -3px;
+}
+img[src="/img/full_star.gif"] {
+    content: url(/img/fullstar.png);
+    width: 12px;
+    height: 12px;
+    margin-right: -3px;
+}
+img[src="/img/no_star.gif"]{
+    content: url(/img/nostar.png);
+    width: 12px;
+    height: 12px;
+    margin-right: -3px;
+}
+img[src="/img/half_star.gif"]{
+    content: url(/img/halfstar.png);
+    width: 12px;
+    height: 12px;
+    margin-right: -3px;
+}
+table[width="510"] {
+    width: 628px;
+}
+.vimg {
+    width: 120px;
+    height: 72px;
+    border-width: 3px!important;
+    border-style: double!important;
+    object-fit: cover;
+}
+.basicBoxes.profileEmbedVideoInfo {
+    width: 638px;
+    margin-left: 0;
+}
+div[style="width: 428px; height: 350px; text-align: center; padding-bottom: 25px;"] {
+    width: 640px!important;
+    height: 360px!important;
+}
+.vlPlayer2009 {
+    outline: none!important;
+}
+.vlPlayer2009 .vlTimestamp {
+    padding-top: 5px;
+    font-family: Arial;
+    font-size: 11px;
+    color: #000;
+}
+.profileTitleLinks {
+    width: 960px;
+}
+.channelMastheadTable {
+    width: 960px;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    font-size: 11px;
+    font-family: Arial,Helvetica,sans-serif;
+    text-align: left;
+}
+#smallMastheadBottom {
+    width: 960px;
+    height: 11px;
+    background-size: cover;
+}
+#profileSubNav {
+    font-size: 0;
+}
+#profileSubNav .delimiter {
+    padding: 0 6px;
+    font-size: 12px;
+}
+#profileSubNav strong {
+    font-size: 12px;
+}
+#searchForm select {
+    display: none;
+}
+#searchField {
+    outline: none;
+}
+.vtitle {
+    padding-top: 2px;
+    height: 30px;
+    padding-left: 3px;
+}
+.floatL .vtitle {
+    padding-top: 0;
+}
+a.headerLink:link {
+    color: #03C !important;
+    font-size: 11px;
+}
+.channelMastheadTable #searchForm input[type="submit"] {
+    color: black;
+    font-weight: normal;
+    font-size: 11px;
+    padding: 0px 10px;
+    bottom: 0;
+    height: 23px;
+    border: 1px solid #999;
+    line-height: 1px;
+    background: #d8d8d8 url(/img/usersearch.png) repeat-x;
+    border-radius: 3px;
+}
+.channelMastheadTable #searchForm input:hover[type="submit"] {
+    background: #d8d8d8 url(/img/usersearchhover.png) repeat-x;
+    text-decoration: underline;
+    cursor: pointer;
+}
+a.masthead:link {
+    color: #03C !important;
+    font-size: 11px;
+}
+.runtime {
+    color: white!important;
+    background: black;
+    padding: 0 4px;
+    border-radius: 2px;
+    position: relative;
+    bottom: 49px;
+    left: 88px;
+    opacity: .75;
+}
+.vfacets {
+    margin-top: -13px;
+    padding-left: 3px;
+}
+.v120vEntry .runtime {
+    left: 86px;
+}
+div[style="width: 875px;"] {
+    width: 960px!important;
+}
+.basicBoxes[style="width:857px;padding:8px;text-align:left;"] {
+    width: 942px!important;
+}
+.video-thumb-medium img {
+    width: 120px;
+    height: 90px;
+    margin-top: -10px;
+}
+.video-thumb-medium {
+    width: 120px;
+    height: 72px;
+}
+.vfacets~div {
+    padding-left: 3px;
+}
+a.pagerNotCurrent {
+    background: transparent!important;
+    text-decoration: none;
+}
+.v120vEntry .vtitle {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#videoImg {
+    width: 70px;
+    height: 70px;
+    border-width: 3px!important;
+    border-style: double!important;
+}
+.vimg90 {
+    width: 50px;
+    height: 50px;
+}
+.vimg90 {
+    width: 50px;
+    height: 50px;
+    border-width: 3px!important;
+    border-style: double!important;
+}
+td[width="82%"] {
+    width: 90%;
+}
+.user-thumb-jumbo img {
+    height: 94px;
+    width: 94px;
+    margin-left: 0;
+}
+.title {
+    width: 110px;
+    text-align: left;
+}
+.title a {
+    font-size: 8pt;
+}

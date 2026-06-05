@@ -1,0 +1,130 @@
+.search-bar {
+    background: none !important;
+    border: none !important;
+    padding: 0px !important;
+    position: relative;
+    top: -25px;
+    border-bottom: 1px solid #ccc !important;
+}
+#masthead center {
+    display: none;
+}
+#masthead .action-button {
+    height: 17px !important;
+    border-radius: 3px;
+    border: 1px solid #ECC101;
+    background: linear-gradient(#FFF9C1 30%, #FEE148);
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 0px;
+    position: relative;
+    left: 5px;
+    top: 5px;
+}
+#masthead {
+    padding-top: 5px;
+}
+#masthead .user-info {
+    top: 10px;
+
+}
+.util-item a {
+    font-size: 12.5px !important;    
+}
+#masthead .action-button-leftcap {
+    height: 19px !important;
+    padding-top: 2px;
+    padding-bottom: 0px;
+    display: none;
+}
+#masthead .action-button-text {
+    height: 19px !important;
+    padding-top: 1px;
+    line-height: 1.4em;
+    font-size: 12.5px;
+    padding-bottom: 0px;
+    border: 5px #000 !important;
+    background: none;
+}
+#masthead .action-button-rightcap {
+    height: 19px !important;    
+    padding-top: 2px;
+    padding-bottom: 0px;
+    display: none;
+}
+#masthead #searchField {
+    font-size: 100% !important;
+    border: 1px solid #999;
+    padding: 4px 1px 1px 1px;
+    width: 25em;
+    height: 18px;
+    vertical-align: top;
+    position: relative;
+    top: 1px;
+}
+#masthead #searchField:focus {
+    outline: none;
+    border: 1px solid #999;
+    padding: 4px 1px 1px 1px;
+}
+#search-form {
+}
+#masthead .nav-item .content {
+    padding: 0px;
+    padding-right: 15px;
+    font-size: 13.4px;
+}
+#masthead .nav-item .content:hover {
+    text-decoration: underline;
+}
+#masthead .nav-item {
+    border: none; !important;  
+    z-index: 5;
+    height: 17px;
+    position: relative;
+    left: 132px;
+    top: 40px;
+}
+#masthead .nav-item:hover {
+    padding: 0px;
+    border: none; !important;
+    background: none !important;
+}
+#masthead .nav-item:focus {
+    padding: 0px;
+    border: none; !important;
+    background: none !important;    
+}
+#masthead .nav-item.selected:hover {
+    border-left: 0;
+    padding-left: 0px;
+}
+#masthead #searchForm {
+    float: left;
+    margin: 0.23077em 0 0 0;
+    padding: 2.5px 3px;
+    line-height: 2.07692em;
+    white-space: nowrap;
+    background: #eaeaea;
+    border: 1px solid #ccc;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+    left: -268px;
+    top: -37px;
+}
+#masthead .search-bar input[type=submit] {
+    font-family: Arial !important;
+    margin: .0833em 0;
+    font-size: 12px !important;
+    position: relative;
+    top: 0px;
+    height: 24px !important;
+    vertical-align: top;
+    zoom: 1;
+}
+.logo img {
+    width: 110px;
+    height: 54px;
+}

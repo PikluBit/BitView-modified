@@ -1,0 +1,381 @@
+#masthead-container {
+    width: auto;
+    margin: 0;
+}
+.vlPlayer2009:focus {
+    outline: none;
+}
+#baseDiv {
+    width: auto;
+}
+#content {
+    width: auto;
+    position: relative;
+}
+#language-picker-container {
+    width: 960px;
+    margin: 6px auto;
+}
+#baseDiv {
+    padding: 0;
+}
+.edit-info {
+    background: #eee;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+.edit-info-inside {
+    width: 960px;
+    margin: 0 auto;
+}
+#edit-info-title {
+    width: 960px;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+#edit-video-title {
+    font-size: 1.66666666em;
+    width: 630px;
+}
+.yt-alert-icon-small {
+    float: left;
+    width: 19px;
+    height: 19px;
+}
+#info-box .yt-alert-icon-small {
+    background: transparent url(/img/info-small.png) no-repeat;
+}
+#success-box .yt-alert-icon-small {
+    background: transparent url(/img/success-small.png) no-repeat;
+}
+#inappropriateVidDiv .box {
+    background-color: #dae1f9;
+    color: #666;
+    padding: 5px 5px;
+    margin: 10px 0;
+}
+#inappropriateVidDiv .box.time input {
+    width: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+#inappropriateVidDiv .box textarea {
+    height: 30px;
+    max-width: 585px;
+    width: 585px;
+}
+#video-info-edit {
+    padding: 6px 8px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+#edit-menu-settings {
+    padding: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    margin-top: 8px;
+}
+.information {
+    float: left;
+    width: 300px;
+}
+.broadcasttitle {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+#edit-menu {
+    min-height: 25px;
+    line-height: 25px;
+}
+#edit-menu-active {
+    width: 960px;
+    margin: 0 auto;
+}
+.video-thumb .img {
+    width: 94px;
+    height: 58px;
+}
+.vimg94 {
+    width: 94px;
+    height: auto;
+    margin-top: -6px!important;
+}
+.video-thumb-94 {
+    width: 94px;
+    height: 58px;
+    display: block;
+    padding: 4px;
+    background: #fff;
+    overflow: hidden;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    _line-height: 0;
+}
+.yt-uix-button-arrow-right {
+    width: 0;
+    height: 0;
+    border: 1px solid transparent;
+    border-width: 5px 0px 5px 5px;
+    border-left-color: #666;
+    margin-top: 1px;
+    float: right;
+}
+.video-list-item-link .quicklist-inlist {
+    margin-top: -29px;
+}
+#comments-post {
+    width: auto;
+    float: none;
+}
+.yt-uix-in {
+    color: #000;
+    width: 220px;
+    height: auto;
+    border: 1px solid #bcc;
+    padding: 4px 5px 4px 5px;
+    line-height: 1.2em;
+    text-decoration: none;
+    background: #fff url(/img/arrow_dropdown-vfl29016.gif) no-repeat 200px 5px;
+    border-width: 1px;
+    font-weight: bold;
+    text-align: left;
+    height: 24px;
+}
+.yt-uix-in:hover, .yt-uix-in-active, .yt-uix-in-drop li>span:hover {
+    background-color: #d7deed;
+}
+.yt-uix-in-drop {
+    position: absolute;
+    z-index: 2147483647;
+    background: #fff;
+    border-top: 1px solid #bcc;
+    border-bottom: 1px solid #bcc;
+}
+.yt-uix-in-drop li {
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    border-left: 1px solid #bcc;
+    border-right: 1px solid #bcc;
+}
+.yt-uix-in-drop li>span {
+    padding: 4px 5px 4px 5px;
+    cursor: pointer;
+    display: block;
+}
+.yt-uix-in-drop-sub {
+    border-left: 0;
+}
+.yt-uix-button-group .yt-uix-button:last-of-type:hover {
+    border-right: 1px solid #999;
+}
+#watch-playlists-button {
+    margin-left: 0;
+}
+#watch-actions-left .yt-uix-button {
+    margin: 0 2px 3px 0;
+}
+#watch-actions-left .yt-uix-button.start {
+    margin: 0 0 3px 0;
+}
+.watch-view-count {
+    margin-left: 3px;
+    line-height: 2.0833em;
+    color: #333;
+    font-size: 12px;
+}
+.watch-view-count strong {
+    font-size: 1.8333em;
+}
+#watch-actions #watch-insight-button {
+    vertical-align: top;
+    padding: 0 3px;
+    margin-left: 5px;
+}
+.yt-uix-button .yt-uix-button-icon-watch-insight {
+    background:url(/img/master-vflHTXKF3.png);
+    background-position: -48px -160px;
+    width: 16px;
+    height: 14px;
+}
+#watch-actions-stats {
+    float: left;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    width: 620px;
+}
+#watch-description .watch-likes-dislikes {
+    color: #999;
+}
+#watch-description .likes {
+    color: #060;
+}
+#watch-description .dislikes {
+    color: #c00;
+}
+#watch-description-body .watch-info-description-head {
+    margin-top: 0.5em;
+    margin-bottom: 1.0em;
+}
+#watch-category span, #watch-tags span {
+    font-size: 95%;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
+#watch-tags a {
+    margin-right: 1.0em;
+}
+#watch-category, #watch-video-tags-div {
+    padding-top: 0;
+    margin: 1.0em 0;
+}
+.yt-uix-button-icon-addto {
+    background:url(/img/master-vflHTXKF3.png);
+    background-position: 0 -200px;
+    width: 11px;
+    height: 13px;
+}
+.addto-label {
+    display: inline;
+    font-weight: normal;
+    margin-left: 0.25em;
+    line-height: 1.3333em;
+}
+.comment {
+    clear: left;
+    overflow: hidden;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+.comment .content {
+    width: 450px;
+}
+.comment-text p {
+    margin: 0;
+    margin-bottom: 6px;
+}
+.comment a {
+    color: #4272db;
+}
+.comment .metadata-inline {
+    display: none;
+}
+.comment .metadata, .comment .metadata-inline {
+    font-size: .9166em;
+    line-height: 0.6;
+    padding-bottom: 2px;
+    color: #666;
+}
+.comments-rating-positive {
+    color: #090;
+    white-space: nowrap
+}
+img.comments-rating-thumbs-up {
+    width: 12px;
+    height: 12px;
+    background-image: url(/img/master-vflVpRAJj.png);
+    background-position: 0 -52px;
+    vertical-align: text-bottom;
+    margin: 0 2px 2px 0;
+    cursor: default
+}
+.content i {
+    margin-bottom: 6px;
+    color: #666;
+}
+.yt-uix-button .yt-uix-button-icon-watch-comment-vote-up, .yt-uix-button .yt-uix-button-icon-watch-comment-vote-down, .yt-uix-button .yt-uix-button-icon-watch-comment-reply {
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+    background-image: url(/img/master-vflVpRAJj.png);
+}
+.yt-uix-button .yt-uix-button-icon-watch-comment-vote-up {
+    background-position: 0 -39px
+}
+
+.yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-up {
+    background-position: 0 -52px
+}
+
+.yt-uix-button.voted-up .yt-uix-button-icon-watch-comment-vote-up {
+    background-position: 0 -65px;
+    cursor: default
+}
+
+.yt-uix-button.voted-down .yt-uix-button-icon-watch-comment-vote-up {
+    background-position: 0 -78px;
+    cursor: default
+}
+
+.yt-uix-button .yt-uix-button-icon-watch-comment-vote-down {
+    background-position: -13px -39px
+}
+
+.yt-uix-button:hover .yt-uix-button-icon-watch-comment-vote-down {
+    background-position: -13px -52px
+}
+
+.yt-uix-button.voted-down .yt-uix-button-icon-watch-comment-vote-down {
+    background-position: -13px -65px;
+    cursor: default
+}
+
+.yt-uix-button.voted-up .yt-uix-button-icon-watch-comment-vote-down {
+    background-position: -13px -78px;
+    cursor: default
+}
+
+.yt-uix-button .yt-uix-button-icon-watch-comment-reply {
+    background-position: -26px -39px
+}
+
+.yt-uix-button:hover .yt-uix-button-icon-watch-comment-reply {
+    background-position: -26px -52px
+}
+.replying .yt-uix-button .yt-uix-button-icon-watch-comment-reply {
+    background-position: -26px -65px;
+    cursor: default
+}
+#watch-player-unavailable {
+    background: #000;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    text-shadow: 1px 1px 0 #000;
+    font-weight: normal;
+    font-size: 24px;
+    color: #fff;
+    background-image: -moz-linear-gradient(top, #111, #383838);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#111), to(#383838));
+    filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr="#111111",endColorStr="#383838");
+}
+#watch-player-unavailable-message {
+    position: absolute;
+    bottom: 80px;
+}
+#watch-player-unavailable-icon-container {
+    float: left;
+    width: 170px;
+    text-align: center;
+}
+#watch-player-unavailable-message-container {
+    float: right;
+    width: 440px;
+}
+#watch-player-unavailable-message-container .watch-unavailable-submessage {
+    font-size: 16px;
+    color: #999;
+    padding-top: 5px;
+}
+.yt-uix-button[disabled].start:hover {
+    border-right: 0;
+}
+.yt-uix-button[disabled].end:hover {
+    border-color: #ccc;
+}

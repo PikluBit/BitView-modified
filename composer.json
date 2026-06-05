@@ -1,0 +1,8 @@
+{
+    "require": {
+        "php81_bc/strftime": "^0.7.6",
+        "ezyang/htmlpurifier": "^4.18",
+        "wixel/gump": "^2.3",
+        "phpmailer/phpmailer": "^7.0"
+    }
+}

@@ -1,0 +1,203 @@
+.profileModifiers {
+    padding: 5px 0px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+.profileModifiers div.first {
+    border-left: 0px;
+    padding: 0px 10px 0px 2px;
+}
+.profileModifiers div.subcategory {
+    border-left: 1px solid #ccc;
+    padding: 0px 10px;
+    font-size: 11px;
+    display: inline;
+}
+.profileModifiers .selected {
+    font-weight: bold;
+}
+
+.hddn {
+    display: none !important;
+}
+/* BUTTONS */
+.action-button .end-cap {
+    float:left;
+}
+.img-action-button-cap-left {
+    background:transparent url(/img/master-vfl47921.gif) no-repeat scroll -162px -37px;
+    height:25px;
+    width:5px;
+}
+.img-action-button-cap-right {
+    background:transparent url(/img/master-vfl47921.gif) no-repeat scroll -167px -37px;
+    height:25px;
+    width:5px;
+}
+.action-button .content {
+    background: transparent url(/img/master-vfl47921.gif) repeat-x scroll -310px -377px;
+    color: #0033CC;
+    float: left;
+    height: 20px;
+    padding: 5px 5px 0pt;
+}
+.action-button .content .title {
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* MESSAGES */
+
+.messages_reply_section {
+    margin-top: 10px;
+}
+.messages_actions {
+    padding: 5px 5px 5px 10px;
+    border-bottom: 1px solid #ccc;
+}
+#messages_in td {
+    position: relative;
+    left:0;
+    vertical-align: top;
+}
+.messages_seperation td {
+    background: -moz-linear-gradient(top, #f7f7f7 0, #e0e0e0 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f7f7f7), color-stop(100%, #e0e0e0)) !important;
+    background: -webkit-linear-gradient(top, #f7f7f7 0, #e0e0e0 100%) !important;
+    background: -o-linear-gradient(top, #f7f7f7 0, #e0e0e0 100%) !important;
+    background: -ms-linear-gradient(top, #f7f7f7 0, #e0e0e0 100%) !important;
+    background: linear-gradient(to bottom, #f7f7f7 0, #e0e0e0 100%) !important;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e0e0e0', GradientType=0) !important;
+    font-size:12px !important
+}
+
+#messages_in .in_not a, .in_not span {
+    color: #000 !important;
+    font-weight:700 !important
+}
+.ms_sct {
+    min-height: 30px;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    cursor:pointer
+}
+.in_message {
+    transition: background-color 50ms
+}
+.in_message td {
+    color: #000000 !important;
+}
+.ms_sct > td:nth-of-type(3) > a {
+    text-decoration: none;
+}
+.ms_sct > td:nth-of-type(3) > a:hover {
+    text-decoration: underline;
+}
+.in_message td:nth-of-type(2) {
+    cursor: auto !important;
+}
+.messages_bulk_actions .search_button, #inblk_form .search_button {
+    border-radius: 0;
+    padding: 3px 10px !important;
+}
+.img-action-arrow {
+    background: transparent url(/img/mmimgs-vfl38740.gif) no-repeat scroll 0 -10px;
+    height: 14px;
+    width: 14px;
+}
+.actions {
+    border-left: 1px solid #999;
+}
+.ms_sct td {
+    position: relative;
+    left: 0;
+    padding: 8px 4px!important;
+}
+#by_user, #by_user a {
+    color: #03c!important;
+}
+#messages_in td, #messages_in td a {
+    color: #333;
+}
+.ms_sct:hover + .in_message {
+    background-color: #fff !important;
+    transition: background-color 50ms;
+}
+.in_message td {
+    border-top: 1px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+}
+.ms_sct.unread a.ms_sub {
+    font-weight: bold;
+}
+
+.in_message a {
+    color: #03c!important;
+}
+.video-cell {
+    display: inline-block;
+}
+.video-entry {
+    padding: 0;
+    margin-top: 6px;
+}
+.vimg90 {
+    border: 0;
+}
+.v90WideEntry {
+    float: left;
+}
+#video-main-content {
+    width: 290px;
+}
+.irs_buttons {
+    margin-bottom: 5px;
+}
+.avt {
+    height: 0;
+    overflow: hidden;
+    transition: height .1s linear;
+}
+.msg_in {
+    overflow: hidden;
+    visibility: hidden;
+    height: auto;
+    transition: height .075s linear;
+}
+#list-pane a {
+    color: #333;
+    font-weight: normal;
+}
+.ms_sub {
+    width: 360px;
+    display: block;
+}
+#list-pane a.channel-subfolder {
+    padding: 4px 20px;
+    font-weight: normal;
+}
+.ms_sub {
+    line-height: 14px;
+}
+#folderlinks-cell {
+    width: 152px;
+}
+#compose-cell {
+    width: auto;
+    border: 0;
+}
+#message_reading {
+    border-left: 1px solid #999;
+    width: 808px;
+}
+.ms_sct #heading-check {
+    padding: 5px 4px !important;
+}
+a.ms_sub {
+    outline: none;
+    background: transparent;
+}
+#compose-cell .footer {
+    background: #fff;
+    text-align: left;
+}
