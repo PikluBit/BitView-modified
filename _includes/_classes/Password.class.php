@@ -30,7 +30,7 @@ class PasswordReset{
         $token = $this->generateToken($email);
 
         // Build the password reset link
-        $resetLink = "https://bitview.net/reset-password.php?email=" . urlencode((string) $email) . "&token=" . $token;
+        $resetLink = get_base_url() . "/reset-password.php?email=" . urlencode((string) $email) . "&token=" . $token;
 
         $this->email->To = $user["email"];
         $this->email->To_Name = "BitView User";

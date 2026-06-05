@@ -300,11 +300,11 @@ else {
                 <div id="watch-embed-div">
                     <div id="watch-url-div">
                             <label for="watch-url-field">URL:</label>
-                            <input name="video_link" id="watch-url-field" type="text" value="http://www.bitview.net/watch?v=<?= $_VIDEO->Info["url"] ?>">
+                            <input name="video_link" id="watch-url-field" type="text" value="<?= get_base_url() ?>/watch?v=<?= $_VIDEO->Info["url"] ?>">
                     </div>
                     <form action="" name="embedForm" id="embedForm">
                         <label for="embed_code"><?= $LANGS['embed'] ?>:</label>
-                        <input id="embed_code" name="embed_code" type="text" value='<iframe id="embedplayer" src="http://www.bitview.net/embed?v=<?= $_VIDEO->Info["url"] ?>" width="448" height="382" allowfullscreen scrolling="off" frameborder="0"></iframe>'>
+                        <input id="embed_code" name="embed_code" type="text" value='<iframe id="embedplayer" src="<?= get_base_url() ?>/embed?v=<?= $_VIDEO->Info["url"] ?>" width="448" height="382" allowfullscreen scrolling="off" frameborder="0"></iframe>'>
                     </form>
                 </div>
             </div>

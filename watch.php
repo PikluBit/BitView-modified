@@ -86,7 +86,7 @@ if ($_VIDEO->exists()) {
 
     if ($_VIDEO->Info["age_restricted"] && (!$_USER->Logged_In || $_USER->Logged_In && ageCalculator($_USER->Info['i_age']) < 18 && $_USER->Username != $_OWNER->Username && !$_USER->Is_Admin && !$_USER->Is_Moderator)) { header("Location: /verify_age?next_url=".urlencode((string) $_SERVER['REQUEST_URI'])); exit(); }
 
-    if (!in_array($_VIDEO->URL,$_USER->Watched_Videos) && !empty($_SERVER["HTTP_REFERER"]) && mb_strpos((string) $_SERVER["HTTP_REFERER"],"bitview.net") === false && filter_var($_SERVER["HTTP_REFERER"], FILTER_VALIDATE_URL) !== FALSE) {
+    if (!in_array($_VIDEO->URL,$_USER->Watched_Videos) && !empty($_SERVER["HTTP_REFERER"]) && mb_strpos((string) $_SERVER["HTTP_REFERER"], $_SERVER['HTTP_HOST'] ?? 'bitview.net') === false && filter_var($_SERVER["HTTP_REFERER"], FILTER_VALIDATE_URL) !== FALSE) {
         $DB->modify("INSERT IGNORE INTO videos_links (link,url,clicks) VALUES (:LINK,:URL,1) ON DUPLICATE KEY UPDATE clicks = clicks + 1",[":LINK" => $_SERVER["HTTP_REFERER"],":URL" => $_VIDEO->URL]);
     }
 

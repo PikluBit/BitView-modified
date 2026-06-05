@@ -72,7 +72,7 @@ if ($_VIDEO->exists()) {
                 if($Is_Added==null) {
                     //SEND MESSAGE
                     $res_URL = $DB->execute("SELECT * FROM videos WHERE url = :URL AND status = 2 AND privacy = 1",true,[":URL" => $Resp_URL]);
-                    $ResponseNotification = 'I added a new video response: "'.$res_URL["title"].'" into your video: "'.$_VIDEO->Info["title"].'". Please accept it! https://www.bitview.net/a/accept_video_response?v='.$Resp_URL.'&org='.$_GET["v"].'';
+                    $ResponseNotification = 'I added a new video response: "'.$res_URL["title"].'" into your video: "'.$_VIDEO->Info["title"].'". Please accept it! ' . get_base_url() . '/a/accept_video_response?v='.$Resp_URL.'&org='.$_GET["v"].'';
                     $_INBOX->send_message($_VIDEO->Info["title"],$ResponseNotification,$_VIDEO->Info["uploaded_by"],$_VIDEO->Info["url"],3);
                 }
 

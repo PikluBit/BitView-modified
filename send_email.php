@@ -24,7 +24,7 @@ if ($action == "c") {
         $Video_URL        = $Comment_Info["url"];
         $By_User          = $Comment_Info["by_user"];
         $Video_Title      = $Comment_Info["title"];
-        $Emailer->send_email("<a href='https://www.bitview.net/user/$By_User'>$By_User</a> has commented on your video: <a href='https://www.bitview.net/watch?v=$Video_URL'>$Video_Title</a>");
+        $Emailer->send_email("<a href='" . get_base_url() . "/user/$By_User'>$By_User</a> has commented on your video: <a href='" . get_base_url() . "/watch?v=$Video_URL'>$Video_Title</a>");
     }
 } elseif ($action == "m") {
     if (!isset($argv[2])) { header("location: /"); exit(); }
@@ -39,7 +39,7 @@ if ($action == "c") {
         $Emailer->Subject = $Message_Info["by_user"]." has sent you a private message";
         $ID               = $Message_Info["id"];
         $By_User          = $Message_Info["by_user"];
-        $Emailer->send_email("<a href='https://www.bitview.net/user/$By_User'>$By_User</a> has sent you a private message on BitView: <a href='https://www.bitview.net/show_message?id=$ID'>Read it</a>.");
+        $Emailer->send_email("<a href='" . get_base_url() . "/user/$By_User'>$By_User</a> has sent you a private message on BitView: <a href='" . get_base_url() . "/show_message?id=$ID'>Read it</a>.");
     }
 } elseif ($action == "s") {
     if (!isset($argv[2])) { header("location: /"); exit(); }
@@ -65,7 +65,7 @@ if ($action == "c") {
             $Video_Title = $Subscription["title"];
             $Views       = $Subscription["views"];
 
-            $Video_String .= "<div style='margin-bottom:4px'>#$Count <a href='https://www.bitview.net/watch?v=$Video_URL'>$Video_Title</a><div style='font-size:12px;color:#696969'>$Views views</div></div>";
+            $Video_String .= "<div style='margin-bottom:4px'>#$Count <a href='" . get_base_url() . "/watch?v=$Video_URL'>$Video_Title</a><div style='font-size:12px;color:#696969'>$Views views</div></div>";
             $Count++;
         }
         $Email = $DB->execute("SELECT email FROM users WHERE username = :USERNAME", true, [":USERNAME" => $Username])["email"];

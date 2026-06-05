@@ -89,7 +89,7 @@ if ($OWNER->exists() && !$OWNER->is_banned()) {
                     </div>
                 <?php endforeach ?>
                 <?php if ($Videos_Amount > 2) : ?>
-                <a href="http://www.bitview.net/" target="_parent"><img src="/img/my_videos_on.png" class="my_videos_on"></a>
+                <a href="<?= get_base_url() ?>/" target="_parent"><img src="/img/my_videos_on.png" class="my_videos_on"></a>
                 <?php endif ?>
             </div>
         <?php else : ?>

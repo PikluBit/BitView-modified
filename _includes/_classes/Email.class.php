@@ -41,10 +41,10 @@ class Email
             "<style>body {font-family: Arial, sans-serif;font-size:12px}</style>"."<table width='100%'>".
             "<tr>".
             "<td>".
-            "<img src='https://www.bitview.net/img/bv09logo.png' style='margin-bottom: 8px'>".
+            "<img src='" . get_base_url() . "/img/bv09logo.png' style='margin-bottom: 8px'>".
             "</td>".
             "<td style='text-align:right'>".
-            "<a href='https://www.bitview.net/help'>help center</a> | <a href='https://www.bitview.net/my_account'>e-mail options</a>".
+            "<a href='" . get_base_url() . "/help'>help center</a> | <a href='" . get_base_url() . "/my_account'>e-mail options</a>".
             "</td>".
             "</tr>".
             "</table>".
