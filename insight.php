@@ -120,6 +120,8 @@ $Gender = $DB->execute("SELECT users.i_gender as gender, count(users.i_gender) a
 
 $Gender_Total = $DB->execute("SELECT count(users.i_gender) as amount FROM users INNER JOIN subscriptions ON subscriptions.subscription = :USERNAME WHERE subscriptions.subscriber = users.username AND users.i_gender != 0 AND subscriptions.submit_date > :DATE",true,[":USERNAME" => $_USER->Username, ":DATE" => $DBDate])['amount'];
 
+$Gender_1 = 0;
+$Gender_2 = 0;
 if ($Gender_Total > 0) {
   foreach ($Gender as $Gender_Num) {
     if ($Gender_Num['gender'] == 1) {
@@ -129,10 +131,6 @@ if ($Gender_Total > 0) {
       $Gender_2 = ($Gender_Num['amount'] / $Gender_Total) * 100;
     }
   }
-}
-else {
-  $Gender_1 = 0;
-  $Gender_2 = 0;
 }
 
 }
@@ -238,6 +236,8 @@ $Gender = $DB->execute("SELECT users.i_gender as gender, count(users.i_gender) a
 
 $Gender_Total = $DB->execute("SELECT count(users.i_gender) as amount FROM users INNER JOIN subscriptions ON subscriptions.subscription = :USERNAME WHERE subscriptions.subscriber = users.username AND users.i_gender != 0 AND subscriptions.submit_date > :DATE",true,[":USERNAME" => $_USER->Username, ":DATE" => $DBDate])['amount'];
 
+$Gender_1 = 0;
+$Gender_2 = 0;
 if ($Gender_Total > 0) {
 foreach ($Gender as $Gender_Num) {
   if ($Gender_Num['gender'] == 1) {
@@ -247,10 +247,6 @@ foreach ($Gender as $Gender_Num) {
     $Gender_2 = ($Gender_Num['amount'] / $Gender_Total) * 100;
   }
 }
-}
-else {
-  $Gender_1 = 0;
-  $Gender_2 = 0;
 }
 }
 if (isset($_GET['page']) && $_GET['page'] == "community") { 
