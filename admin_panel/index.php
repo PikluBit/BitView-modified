@@ -490,6 +490,8 @@ if (
         if (isset($_POST["upload"]))    { $Upload   = true; } else { $Upload    = false; }
         if (isset($_POST["profiles"]))  { $Profiles   = true; } else { $Profiles    = false; }
         if (isset($_POST["videos"]))    { $Videos   = true; } else { $Videos    = false; }
+        if (isset($_POST["ffmpeg_conversion"])) { $ffmpeg_conversion = true; } else { $ffmpeg_conversion = false; }
+        if (isset($_POST["custom_thumbnails"])) { $custom_thumbnails = true; } else { $custom_thumbnails = false; }
 
 
         $_CONFIG->Config["signup"] = $Sign_Up;
@@ -497,6 +499,8 @@ if (
         $_CONFIG->Config["upload"] = $Upload;
         $_CONFIG->Config["profiles"] = $Profiles;
         $_CONFIG->Config["videos"]   = $Videos;
+        $_CONFIG->Config["ffmpeg_conversion"] = $ffmpeg_conversion;
+        $_CONFIG->Config["custom_thumbnails"] = $custom_thumbnails;
 
         $cfgPath = $_SERVER['DOCUMENT_ROOT']."/_includes/config.json";
         $cfgDir = dirname($cfgPath);
@@ -518,9 +522,29 @@ if (
         $Logo   = $_POST["logo"];
 
         if (!str_contains(mb_strtolower((string) $My_Inbox),"<script>") && !str_contains(mb_strtolower((string) $Slogan),"<script>")) {
-            $DB->modify("UPDATE config SET value = :BOX_TEXT WHERE name = 'box_text'",[":BOX_TEXT" => $My_Inbox]);
-            $DB->modify("UPDATE config SET value = :SLOGAN WHERE name = 'slogan_top'",[":SLOGAN" => $Slogan]);
-            $DB->modify("UPDATE config SET int_value = :LOGO WHERE name = 'logo'",[":LOGO" => $Logo]);
+            // Update or Insert box_text
+            $checkBox = $DB->execute("SELECT id FROM config WHERE name = 'box_text'", true);
+            if ($checkBox) {
+                $DB->modify("UPDATE config SET value = :BOX_TEXT WHERE name = 'box_text'", [":BOX_TEXT" => $My_Inbox]);
+            } else {
+                $DB->modify("INSERT INTO config (name, value) VALUES ('box_text', :BOX_TEXT)", [":BOX_TEXT" => $My_Inbox]);
+            }
+
+            // Update or Insert slogan_top
+            $checkSlogan = $DB->execute("SELECT id FROM config WHERE name = 'slogan_top'", true);
+            if ($checkSlogan) {
+                $DB->modify("UPDATE config SET value = :SLOGAN WHERE name = 'slogan_top'", [":SLOGAN" => $Slogan]);
+            } else {
+                $DB->modify("INSERT INTO config (name, value) VALUES ('slogan_top', :SLOGAN)", [":SLOGAN" => $Slogan]);
+            }
+
+            // Update or Insert logo
+            $checkLogo = $DB->execute("SELECT id FROM config WHERE name = 'logo'", true);
+            if ($checkLogo) {
+                $DB->modify("UPDATE config SET int_value = :LOGO WHERE name = 'logo'", [":LOGO" => $Logo]);
+            } else {
+                $DB->modify("INSERT INTO config (name, value, int_value) VALUES ('logo', '', :LOGO)", [":LOGO" => $Logo]);
+            }
 
             $DB->modify("INSERT INTO admin_logs(whodid,whatdid) VALUES (:USERNAME,:WHATDID)",[":USERNAME" => $_USER->Username, ":WHATDID" => 'Changed site config: Logo, Slogan or My Inbox']);
 

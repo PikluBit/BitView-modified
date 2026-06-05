@@ -1,38 +1,40 @@
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/storage/pail
-/vendor
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Composer files
+vendor/
+
+# Environment files
 .env
-.env.backup
-.env.production
-.env.example
-.phpactor.json
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-/auth.json
-/.fleet
-/.idea
-/.nova
-/.vscode
-/.zed
 
+# Configuration files
+config.php
+
+# Log files
+*.log
+error_log
+
+# FTP files
+.ftpquota
+
+# Assets
+videos/
+u/
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS files
 .DS_Store
-package.json
-vite.config.js
-package-lock.json
-bun.lockb
+.AppleDouble
+.LSOverride
+._*
 
-# lock
-install.lock
-composer.lock
-
-/u
-/videos
-php-error.log
+# *nix files
+.directory
+.Trash-*

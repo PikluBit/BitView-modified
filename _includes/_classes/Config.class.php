@@ -5,7 +5,9 @@ class Config {
         "signup"    => true,
         "upload"    => true,
         "profiles"  => true,
-        "videos"    => true
+        "videos"    => true,
+        "ffmpeg_conversion" => true,
+        "custom_thumbnails" => false
     ];
 
     public $Config = [];

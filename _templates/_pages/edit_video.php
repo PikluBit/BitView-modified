@@ -275,7 +275,7 @@
                 <div class="editheader" onclick="showHideThumbnail()"><img src="/img/pixel.gif" class="arr" id="thumb-arr"> <?= $LANGS['videothumbnail'] ?>
                 </div>
                     <div class="container" id="video-thumbnail" style="display:block">
-                    <?php if($_USER->Info["is_partner"]) : ?>
+                    <?php if($_USER->Info["is_partner"] || (isset($_CONFIG->Config["custom_thumbnails"]) && $_CONFIG->Config["custom_thumbnails"] === true)) : ?>
                     <span onclick="document.getElementById('thumbnail-select').click();document.getElementById('thumbnail').classList.add('new');" style="cursor:pointer"><img id="thumbnail" <?php if (file_exists($_SERVER['DOCUMENT_ROOT'] .'/u/thmp/'.$_VIDEO->Info["url"].'.jpg')): ?>src="/u/thmp/<?= $_VIDEO->Info["url"] ?>.jpg"<?php else: ?>src="/img/nothump.png"<?php endif ?> class="vimg120">
                     </span>
                 <div class="submitimage"><input type="file" name="image" id="thumbnail-select" style="display:none"><input type="submit" name="change_image" class="yt-button" value="<?= $LANGS['uploadthumbnail'] ?>">

@@ -177,6 +177,7 @@ function createFileFromChunks($temp_dir, $fileName, $chunkSize, $totalSize, $tot
 {
     global $ID;
     global $DB;
+    global $_CONFIG;
 
     // count all the parts of this file
     $total_files_on_server_size = 0;
@@ -187,16 +188,25 @@ function createFileFromChunks($temp_dir, $fileName, $chunkSize, $totalSize, $tot
     // check that all the parts are present
     // If the Size of all the chunks on the server is equal to the size of the file uploaded.
     if ($total_files_on_server_size >= $totalSize) {
+        $skip_transcode = isset($_CONFIG->Config["ffmpeg_conversion"]) && $_CONFIG->Config["ffmpeg_conversion"] === false;
+        $dest_file_path = $skip_transcode ? $_SERVER["DOCUMENT_ROOT"]."/videos/$fileName.mp4" : $_SERVER["DOCUMENT_ROOT"]."/u/tmp/$fileName.video";
+
         // create the final destination file
-        if (($fp = fopen($_SERVER["DOCUMENT_ROOT"]."/u/tmp/$fileName.video", 'w')) !== false) {
+        if (($fp = fopen($dest_file_path, 'w')) !== false) {
             for ($i=1; $i<=$total_files; $i++) {
                 fwrite($fp, file_get_contents($temp_dir.'/'.$fileName.'.part'.$i));
             }
             fclose($fp);
 
-            $DB->modify("UPDATE videos SET status = 1 WHERE url = :URL", [":URL" => $ID]);
-            $DB->modify("UPDATE videos_uploads SET status = 1 WHERE vid = :URL", [":URL" => $ID]);
-            $DB->modify("INSERT INTO converting (url, date, status) VALUES (:URL, NOW(), 0)", [":URL" => $ID]);
+            if ($skip_transcode) {
+                $DB->modify("UPDATE videos SET status = 2 WHERE url = :URL", [":URL" => $ID]);
+                $DB->modify("UPDATE videos_uploads SET status = 1 WHERE vid = :URL", [":URL" => $ID]);
+                // Do not attempt to run any ffmpeg/ffprobe commands
+            } else {
+                $DB->modify("UPDATE videos SET status = 1 WHERE url = :URL", [":URL" => $ID]);
+                $DB->modify("UPDATE videos_uploads SET status = 1 WHERE vid = :URL", [":URL" => $ID]);
+                $DB->modify("INSERT INTO converting (url, date, status) VALUES (:URL, NOW(), 0)", [":URL" => $ID]);
+            }
         } else {
             return false;
         }

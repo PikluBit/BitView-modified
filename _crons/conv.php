@@ -1,5 +1,9 @@
 <?php
 
+if (!isset($_SERVER['DOCUMENT_ROOT']) || empty($_SERVER['DOCUMENT_ROOT'])) {
+    $_SERVER['DOCUMENT_ROOT'] = dirname(__DIR__);
+}
+
 require_once $_SERVER['DOCUMENT_ROOT']."/_includes/init.php";
 ini_set('max_execution_time', 3000000);
 
@@ -38,16 +42,23 @@ while ($All_Query > 0) {
         $Info = $DB->execute("SELECT users.is_partner FROM users WHERE users.username = ? LIMIT 1", true, [$UPLOADER->Username]);
         $Partner = $Info['is_partner'];
         
+        $skip_transcode = isset($_CONFIG->Config["ffmpeg_conversion"]) && $_CONFIG->Config["ffmpeg_conversion"] === false;
+
     if ($Partner == 0) {
         if ($Length <= 900) {
-            $Video->Get_Info();
-            $Video->Resize(480);
-            $Video->SampleRate   = 44100;
-            $Video->CRF          = 23;
-            $Video->Framerate    = "30";
-            $Video->AudioBitrate = "128k";
             $Video->Output       = $_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4";
-            $Log = $Video->Convert();
+            if ($skip_transcode) {
+                copy($Video_File, $Video->Output);
+                $Log = "";
+            } else {
+                $Video->Get_Info();
+                $Video->Resize(480);
+                $Video->SampleRate   = 44100;
+                $Video->CRF          = 23;
+                $Video->Framerate    = "30";
+                $Video->AudioBitrate = "128k";
+                $Log = $Video->Convert();
+            }
 
             if (file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4")) {
                 if ($Length <= 7) {
@@ -90,29 +101,36 @@ while ($All_Query > 0) {
         }
     } else {
         if ($Length <= 3601) {
-            $Video->Get_Info();
-            $Video->Resize(720);
-            $Video->SampleRate   = 44100;
-            $Video->CRF          = $Video->HD ? 25 : 23;
-            $Video->Framerate    = "30";
-            $Video->AudioBitrate = "192k";
             $Video->Output       = $_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4";
-            $Log = $Video->Convert();
-            $Cond = file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4");
-
-            if ($Video->HD) {
-                rename($Video->Output, $_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.720.mp4");
-                $HD = 1;
-                
-                $Video->Resize(360);
-                $Video->SampleRate = 44100;
-                $Video->Framerate = "30";
-                $Video->AudioBitrate = "96k";
-                $Video->CRF = 23;
-                $Log = $Video->Convert();
-                $Cond = file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4") && file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.720.mp4");
-            } else {
+            if ($skip_transcode) {
+                copy($Video_File, $Video->Output);
+                $Log = "";
+                $Cond = file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4");
                 $HD = 0;
+            } else {
+                $Video->Get_Info();
+                $Video->Resize(720);
+                $Video->SampleRate   = 44100;
+                $Video->CRF          = $Video->HD ? 25 : 23;
+                $Video->Framerate    = "30";
+                $Video->AudioBitrate = "192k";
+                $Log = $Video->Convert();
+                $Cond = file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4");
+
+                if ($Video->HD) {
+                    rename($Video->Output, $_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.720.mp4");
+                    $HD = 1;
+                    
+                    $Video->Resize(360);
+                    $Video->SampleRate = 44100;
+                    $Video->Framerate = "30";
+                    $Video->AudioBitrate = "96k";
+                    $Video->CRF = 23;
+                    $Log = $Video->Convert();
+                    $Cond = file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.mp4") && file_exists($_SERVER['DOCUMENT_ROOT']."/videos/$FILE_URL.720.mp4");
+                } else {
+                    $HD = 0;
+                }
             }
 
             if ($Cond) {

@@ -121,12 +121,16 @@ if (isset($_POST["upload_video2"]) && !empty($_FILES["video_file"]["name"])) {
 
             if (isset($Validation["broadcast"]) && $Validation["broadcast"] != 2) { $Privacy = 1; } else { $Privacy = 2; }
 
-            if (move_uploaded_file($Video_TMP,"u/tmp/$File_URL.video")) {
+            $skip_transcode = isset($_CONFIG->Config["ffmpeg_conversion"]) && $_CONFIG->Config["ffmpeg_conversion"] === false;
+            $target_path = $skip_transcode ? "videos/$File_URL.mp4" : "u/tmp/$File_URL.video";
+
+            if (move_uploaded_file($Video_TMP, $target_path)) {
                 $Title = $Validation["title"];
                 $Description = $Validation["description"];
                 $Tags        = $Validation["tags"];
+                $status = $skip_transcode ? 2 : 0;
 
-                $Insert = $DB->modify("INSERT INTO videos(url,file_url,title,description,tags,uploaded_by,uploaded_on,privacy,file_name,address,country,date_recorded,category,delete_id) VALUES(:URL,:FILE_URL,:TITLE,:DESCRIPTION,:TAGS,:UPLOADED_BY,NOW(),:PRIVACY,:FILE_NAME,:ADDRESS,:COUNTRY,:DATE,:CATEGORY,:DELETE_ID)",
+                $Insert = $DB->modify("INSERT INTO videos(url,file_url,title,description,tags,uploaded_by,uploaded_on,privacy,file_name,address,country,date_recorded,category,delete_id,status) VALUES(:URL,:FILE_URL,:TITLE,:DESCRIPTION,:TAGS,:UPLOADED_BY,NOW(),:PRIVACY,:FILE_NAME,:ADDRESS,:COUNTRY,:DATE,:CATEGORY,:DELETE_ID,:STATUS)",
                                            [
                                                ":URL"          => $Main_URL,
                                                ":FILE_URL"     => $File_URL,
@@ -140,11 +144,16 @@ if (isset($_POST["upload_video2"]) && !empty($_FILES["video_file"]["name"])) {
                                                ":ADDRESS"      => $Validation["address"],
                                                ":UPLOADED_BY"  => $_USER->Username,
                                                ":CATEGORY"     => (int)$Validation["category"],
-                                               ":DELETE_ID"    => $DELETE_ID
+                                               ":DELETE_ID"    => $DELETE_ID,
+                                               ":STATUS"       => $status
                                            ]);
 
-                $Insert = $DB->modify("INSERT INTO converting(url,date) VALUES(:URL,NOW())",
-                                      [":URL" => $Main_URL]);
+                if ($skip_transcode) {
+                    // Do not attempt to run any ffmpeg/ffprobe commands
+                } else {
+                    $Insert = $DB->modify("INSERT INTO converting(url,date) VALUES(:URL,NOW())",
+                                          [":URL" => $Main_URL]);
+                }
 
                 $_USER->update_videos();
             } else {

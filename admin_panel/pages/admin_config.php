@@ -15,6 +15,8 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
                 <div style="margin-bottom:4px"><label><input type="checkbox" name="upload"<?php if ($_CONFIG->Config["upload"]) : ?> checked<?php endif ?>> <span style="position:relative;bottom:2px">Upload</span></label></div>
                 <div style="margin-bottom:4px"><label><input type="checkbox" name="profiles"<?php if ($_CONFIG->Config["profiles"]) : ?> checked<?php endif ?>> <span style="position:relative;bottom:2px">Profiles</span></label></div>
                 <div style="margin-bottom:4px"><label><input type="checkbox" name="videos"<?php if ($_CONFIG->Config["videos"]) : ?> checked<?php endif ?>> <span style="position:relative;bottom:2px">Videos</span></label></div>
+                <div style="margin-bottom:4px"><label><input type="checkbox" name="ffmpeg_conversion"<?php if (isset($_CONFIG->Config["ffmpeg_conversion"]) ? $_CONFIG->Config["ffmpeg_conversion"] : true) : ?> checked<?php endif ?>> <span style="position:relative;bottom:2px">FFmpeg Video Conversion</span></label></div>
+                <div style="margin-bottom:4px"><label><input type="checkbox" name="custom_thumbnails"<?php if (isset($_CONFIG->Config["custom_thumbnails"]) ? $_CONFIG->Config["custom_thumbnails"] : false) : ?> checked<?php endif ?>> <span style="position:relative;bottom:2px">Allow Custom Thumbnails (all users)</span></label></div>
                 <div style="margin-top:7px"><input type="submit" name="save_pages" value="Save" class="yt-button" style="font-size:12px;padding:0.3888em 0.8333em"></div>
             </form>
         </div>

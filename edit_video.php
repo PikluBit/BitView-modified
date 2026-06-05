@@ -24,6 +24,9 @@ $_VIDEO->check_info();
 if ($_VIDEO->Info["uploaded_by"] !== $_USER->Username) { header("location: /my_videos"); exit(); }
 
 if (isset($_POST["change_image"])) {
+    if (empty($_FILES['image']['name']) || $_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
+        notification("Please select a file first.", "/edit_video?v=".$_GET['v']); exit();
+    }
     $Uploader = new upload($_FILES["image"]);
     $Uploader->file_new_name_body      = $_VIDEO->URL;
     $Uploader->image_resize            = true;
@@ -54,7 +57,7 @@ if (isset($_POST["change_image"])) {
     if ($Uploader->processed) {
         notification("Thumbnail successfully updated! It can take 6 hours for your new thumbnail to appear.", "/edit_video?v=".$_GET['v'], "cfeeb2"); exit();
     } else {
-        notification($LANGS['somethingwentwrong'], false, "/edit_video?v=".$_GET['v']); exit();
+        notification($LANGS['somethingwentwrong'], "/edit_video?v=".$_GET['v']); exit();
     }
 }
 
@@ -154,17 +157,27 @@ if (isset($_POST["update_video_file"]) && !empty($_FILES["video_file"]["name"]) 
             $File_URL   = $_VIDEO->Info['file_url'];
             $DELETE_ID  = $_VIDEO->Info['delete_id'];
 
-            if (move_uploaded_file($Video_TMP, "u/tmp/$File_URL.video")) {
-                $Normal_File = @glob($_SERVER['DOCUMENT_ROOT']."/videos/".$File_URL.".*")[0];
-                @unlink($Normal_File);
+            $skip_transcode = isset($_CONFIG->Config["ffmpeg_conversion"]) && $_CONFIG->Config["ffmpeg_conversion"] === false;
 
-                $HD_File = @glob($_SERVER['DOCUMENT_ROOT']."/videos/".$File_URL.".720.*")[0];
-                @unlink($HD_File);
+            // Delete old files
+            $Normal_Files = @glob($_SERVER['DOCUMENT_ROOT']."/videos/".$File_URL.".*");
+            foreach ($Normal_Files as $f) {
+                @unlink($f);
+            }
+            $HD_File = @glob($_SERVER['DOCUMENT_ROOT']."/videos/".$File_URL.".720.*")[0];
+            @unlink($HD_File);
+            @unlink($_SERVER['DOCUMENT_ROOT']."/u/thmp/".$Main_URL.".jpg");
 
-                @unlink($_SERVER['DOCUMENT_ROOT']."/u/thmp/".$Main_URL.".jpg");
-                
-                $Insert = $DB->modify("INSERT INTO converting(url,date,updating) VALUES(:URL,NOW(),1)",[":URL" => $Main_URL]);
-                $Insert = $DB->modify("UPDATE videos SET status = 1 WHERE url = :URL", [":URL" => $Main_URL]);
+            $target_path = $skip_transcode ? $_SERVER['DOCUMENT_ROOT']."/videos/$File_URL.mp4" : $_SERVER['DOCUMENT_ROOT']."/u/tmp/$File_URL.video";
+
+            if (move_uploaded_file($Video_TMP, $target_path)) {
+                if ($skip_transcode) {
+                    $Insert = $DB->modify("UPDATE videos SET status = 2 WHERE url = :URL", [":URL" => $Main_URL]);
+                    // Do not attempt to run any ffmpeg/ffprobe commands
+                } else {
+                    $Insert = $DB->modify("INSERT INTO converting(url,date,updating) VALUES(:URL,NOW(),1)",[":URL" => $Main_URL]);
+                    $Insert = $DB->modify("UPDATE videos SET status = 1 WHERE url = :URL", [":URL" => $Main_URL]);
+                }
 
                 $_USER->update_videos();
 
