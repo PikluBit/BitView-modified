@@ -8,31 +8,37 @@ function get_base_url() {
 }
 
 // Multibyte-compatible trim helpers (restore missing helpers used across templates)
-function mb_trim($string, $charlist = '\\s') {
-    $s = (string) $string;
-    if ($charlist === '\\s') {
-        return preg_replace('/^\s+|\s+$/u', '', $s);
+if (!function_exists('mb_trim')) {
+    function mb_trim($string, $charlist = '\\s') {
+        $s = (string) $string;
+        if ($charlist === '\\s') {
+            return preg_replace('/^\s+|\s+$/u', '', $s);
+        }
+        $cl = preg_quote($charlist, '/');
+        return preg_replace('/^['.$cl.']+|['.$cl.']+$/u', '', $s);
     }
-    $cl = preg_quote($charlist, '/');
-    return preg_replace('/^['.$cl.']+|['.$cl.']+$/u', '', $s);
 }
 
-function mb_ltrim($string, $charlist = '\\s') {
-    $s = (string) $string;
-    if ($charlist === '\\s') {
-        return preg_replace('/^\s+/u', '', $s);
+if (!function_exists('mb_ltrim')) {
+    function mb_ltrim($string, $charlist = '\\s') {
+        $s = (string) $string;
+        if ($charlist === '\\s') {
+            return preg_replace('/^\s+/u', '', $s);
+        }
+        $cl = preg_quote($charlist, '/');
+        return preg_replace('/^['.$cl.']+/u', '', $s);
     }
-    $cl = preg_quote($charlist, '/');
-    return preg_replace('/^['.$cl.']+/u', '', $s);
 }
 
-function mb_rtrim($string, $charlist = '\\s') {
-    $s = (string) $string;
-    if ($charlist === '\\s') {
-        return preg_replace('/\s+$/u', '', $s);
+if (!function_exists('mb_rtrim')) {
+    function mb_rtrim($string, $charlist = '\\s') {
+        $s = (string) $string;
+        if ($charlist === '\\s') {
+            return preg_replace('/\s+$/u', '', $s);
+        }
+        $cl = preg_quote($charlist, '/');
+        return preg_replace('/['.$cl.']+$/u', '', $s);
     }
-    $cl = preg_quote($charlist, '/');
-    return preg_replace('/['.$cl.']+$/u', '', $s);
 }
 
 function notification(string $Message,$Redirect, string $Color = "FFA3A3") {

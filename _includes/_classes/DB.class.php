@@ -19,15 +19,28 @@ class DB {
                 PDO::ATTR_EMULATE_PREPARES => true,
                 PDO::ATTR_PERSISTENT => false,
             ];
-            // Ensure the connection uses utf8mb4 and the expected collation
-            if (defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
-                $options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES {$this::$Connect['charset']} COLLATE utf8mb4_general_ci";
+            
+            // Ensure the connection uses utf8mb4 and the expected collation.
+            // Avoids PHP 8.5 deprecation warning by checking Pdo\Mysql first and accessing legacy constant dynamically.
+            $init_const = null;
+            if (class_exists('Pdo\\Mysql') && defined('Pdo\\Mysql::ATTR_INIT_COMMAND')) {
+                $init_const = Pdo\Mysql::ATTR_INIT_COMMAND;
+            } elseif (defined('PDO::MYSQL_ATTR_INIT_COMMAND')) {
+                $init_const = constant('PDO::MYSQL_ATTR_INIT_COMMAND');
+            }
+            if ($init_const !== null) {
+                $options[$init_const] = "SET NAMES {$this::$Connect['charset']} COLLATE utf8mb4_general_ci";
             }
 
             $this->Connection = new PDO('mysql:host='.$this::$Connect["host"].';dbname='.$this::$Connect["database"].';charset='.$this::$Connect["charset"],$this::$Connect["username"],$this::$Connect["password"], $options);
             return true;
         }
-        catch (PDOException) { return false; }
+        catch (PDOException $e) {
+            if ($Show_Errors) {
+                die("Database connection failed: " . $e->getMessage());
+            }
+            return false;
+        }
     }
 
     private function logQuery(string $SQL, array $Execute) {
