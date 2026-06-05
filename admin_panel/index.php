@@ -119,7 +119,7 @@ if (
 
     $Reports = $DB->execute("SELECT users_flags.*, users.username FROM users_flags LEFT JOIN users ON users_flags.username = users.username ORDER BY users_flags.submit_date DESC LIMIT 32");
 
-    $Applications = $DB->execute("SELECT partner_applications.*, users.username FROM partner_applications LEFT JOIN users ON partner_applications.username = users.username ORDER BY partner_applications.submit_date DESC LIMIT 32");
+    $Applications = $DB->execute("SELECT partner_applications.*, users.username, users.is_partner FROM partner_applications LEFT JOIN users ON partner_applications.username = users.username ORDER BY partner_applications.submit_date DESC LIMIT 32");
 
     if (isset($_GET["resolve"])) {
         $DB->modify("DELETE FROM users_flags WHERE username = :USERNAME",[":USERNAME" => $_GET["resolve"]]);

@@ -193,7 +193,7 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
                     <td align="center">Actions</td>
                 </tr>
                 <?php foreach ($Applications as $Application) : ?>
-                <?php if ($_MEMBER->Info["is_partner"] == 0): ?>
+                <?php if ($Application["is_partner"] == 0): ?>
                 <tr>
                     <td width="80"><a href="/user/<?= $Application["username"] ?>"><?= $Application["username"] ?></a></td>
                     <td align="center"><?= date("M d, Y", strtotime((string) $Application["submit_date"])) ?></td>

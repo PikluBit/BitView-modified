@@ -23,6 +23,19 @@ function showActions(e) {
         document.getElementById('watch-comment-vote-up').classList.remove('voted-down');
         document.getElementById('watch-comment-vote-down').classList.remove('voted-down');
     }
+    var removeBtn = document.getElementById('watch-comment-remove-link');
+    if (removeBtn) {
+        var is_admin_or_mod = <?= ($_USER->Is_Admin || $_USER->Is_Moderator) ? 'true' : 'false' ?>;
+        var is_uploader = <?= ($_USER->Username == $_VIDEO->Info["uploaded_by"]) ? 'true' : 'false' ?>;
+        var author = e.getAttribute('data-author-username');
+        var current_user = '<?= $_USER->Username ?>';
+        
+        if (is_admin_or_mod || is_uploader || author === current_user) {
+            removeBtn.style.display = 'inline-block';
+        } else {
+            removeBtn.style.display = 'none';
+        }
+    }
     var rect = e.getBoundingClientRect();
     var height = document.getElementById('masthead-container').offsetHeight;
     var width = (document.body.clientWidth - 960) / 2;
@@ -319,7 +332,7 @@ function post_comment(url) {
         <?php $User_Vote = $DB->execute("SELECT rating FROM comment_votes WHERE id = :ID and by_user = :USERNAME", true, [":ID" => $Comment['id'], ":USERNAME" => $_USER->Username]); if (!isset($User_Vote['rating'])) {$User_Vote['rating'] = 2;} ?>
         <?php $Comment_Score = $Comment['likes'] - $Comment['dislikes'];?>
         <?php $User_Has_Marked = $DB->execute("SELECT * FROM videos_spam WHERE id = :ID and by_user = :USERNAME", true, [":ID" => $Comment['id'], ":USERNAME" => $_USER->Username]); if ($User_Has_Marked) { $User_Has_Marked = 1; } else { $User_Has_Marked = 0; } ?>
-        <li data-id="<?= $Comment['id'] ?>" data-score="<?= $Comment_Score ?>" user-flag="<?= $User_Has_Marked ?>" user-score="<?= $User_Vote['rating'] ?>" data-author="<?= displayname($Comment['by_user']) ?>" onmouseover="showActions(this);" class="">
+        <li data-id="<?= $Comment['id'] ?>" data-score="<?= $Comment_Score ?>" user-flag="<?= $User_Has_Marked ?>" user-score="<?= $User_Vote['rating'] ?>" data-author="<?= displayname($Comment['by_user']) ?>" data-author-username="<?= $Comment['by_user'] ?>" onmouseover="showActions(this);" class="">
         <div class="wrapper">
             <div class="metadata">
             <div><a href="/user/<?= $Comment['by_user'] ?>" class="comment-author "><?= displayname($Comment['by_user']) ?></a></div>
@@ -359,7 +372,7 @@ function post_comment(url) {
 </button>           <button class="master-sprite-new yt-uix-button yt-uix-tooltip" onmouseover="showTooltip(this);" onmouseout="hideTooltip();" title="Flag for spam" onclick="flagCom(this); return false;" type="button">
     <img class="yt-uix-button-icon-watch-comment-flag" src="/img/pixel.gif" alt="">
 </button>
-<?php if ($_USER->Logged_In && (($_USER->Is_Admin || $_USER->Is_Moderator) || ($_USER->Username == $_VIDEO->Info["uploaded_by"]) || ($_USER->Username == $Video_Comment["by_user"]) )) : ?>
+<?php if ($_USER->Logged_In) : ?>
     <button id="watch-comment-remove-link" class="master-sprite-new yt-uix-button yt-uix-tooltip" title="Remove" onclick="delete_comment(); return false;" type="button" onmouseover="showTooltip(this);" onmouseout="hideTooltip();">
     <img class="yt-uix-button-icon-watch-comment-remove" src="/img/pixel.gif" alt="">
     

@@ -129,6 +129,7 @@ if ($_USER->Logged_In) { $Flagged = $_USER->has_flagged($_VIDEO); }
                                 
 <div id="playnav-panel-comments" class=""><h2><?= $LANGS['statcomments'] ?> (<?= $_VIDEO->Info["comments"] ?>)</h2>
 <div class="playnav_comments">
+<?php if (is_array($Video_Comments) || is_object($Video_Comments)): ?>
 <?php foreach ($Video_Comments as $Comment): ?>
 <div class="watch-comment-entry">
     <div class="watch-comment-head">
@@ -148,6 +149,7 @@ if ($_USER->Logged_In) { $Flagged = $_USER->has_flagged($_VIDEO); }
     </div>
 </div>
 <?php endforeach ?>
+<?php endif ?>
 </div>
 <a href="/watch?v=<?= $_VIDEO->Info["url"] ?>" id="playnav-watch-link" onclick="playnav.goToWatchPage()"><?= $LANGS['seeallcommentsandresponses'] ?></a>
 </div>
