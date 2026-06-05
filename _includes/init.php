@@ -16,6 +16,9 @@ if (str_contains((string) $host, 'localhost') || str_contains((string) $host, '.
 // Load composer packages
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable($_SERVER['DOCUMENT_ROOT'] ?? __DIR__ . '/../');
+$dotenv->load();
+
 // Custom GUMP validators & filters
 GUMP::add_validator('NoHTML', function($field, $input, $param = NULL) {
     if (!mb_strpos((string) $input[$field],"<") and !mb_strpos((string) $input[$field],">")) {
@@ -127,4 +130,4 @@ unset($USERNAME);
 $_CONFIG = new Config();
 if ($isVerfied != 1 && !str_starts_with((string) $_SERVER['REQUEST_URI'], '/email_confirm') && !str_starts_with((string) $_SERVER['REQUEST_URI'], '/a/verify_email')) { header('location: /email_confirm'); }
 
-date_default_timezone_set('Europe/Berlin');
+date_default_timezone_set(getenv('APP_TIMEZONE') ?: 'Europe/Berlin');

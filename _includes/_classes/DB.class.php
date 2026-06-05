@@ -2,17 +2,18 @@
 class DB {
     public $Row_Num;
 
-    private static $Connect = [
-        "host"      => "localhost",
-        "database"  => "bitview",
-        "username"  => "root",
-        "password"  => "",
-        "charset"   => "utf8mb4"
-    ];
+    private static $Connect = [];
 
     protected $Connection;
 
     function __construct(bool $Show_Errors = true) {
+        self::$Connect = [
+            "host"      => getenv('DB_HOST'),
+            "database"  => getenv('DB_DATABASE'),
+            "username"  => getenv('DB_USERNAME'),
+            "password"  => getenv('DB_PASSWORD'),
+            "charset"   => getenv('DB_CHARSET')
+        ];
         try {
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

@@ -2,12 +2,7 @@
 
 class Email
 {
-    private $Config = [
-        "Username"      => "",
-        "Password"      => "",
-        "Host"          => "",
-        "Port"          => 465
-    ];
+    private $Config = [];
 
     public $To;
     public $To_Name;
@@ -16,6 +11,12 @@ class Email
 
     public function send_email(string $Content)
     {
+        $this->Config = [
+            "Username"      => getenv('SMTP_USERNAME') ?: '',
+            "Password"      => getenv('SMTP_PASSWORD') ?: '',
+            "Host"          => getenv('SMTP_HOST') ?: '',
+            "Port"          => getenv('SMTP_PORT') !== false ? (int)getenv('SMTP_PORT') : 465
+        ];
 
         $mail = new PHPMailer();
 

@@ -2,6 +2,10 @@
 use function PHP81_BC\strftime;
 
 function get_base_url() {
+    $env_url = getenv('APP_URL');
+    if (!empty($env_url)) {
+        return rtrim($env_url, '/');
+    }
     $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
     $host = $_SERVER['HTTP_HOST'] ?? 'www.bitview.net';
     return $scheme . '://' . $host;
