@@ -435,7 +435,7 @@ class User
         return false;
     }
 
-    public function can_watch_video(Video $_VIDEO, User $_OWNER = null)
+    public function can_watch_video(Video $_VIDEO, ?User $_OWNER = null)
     {
         if (isset($_VIDEO->Exists)) {
             $Exists = (bool)$_VIDEO->Exists;

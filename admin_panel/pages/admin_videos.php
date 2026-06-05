@@ -76,7 +76,7 @@ if (!$_USER->Logged_In || (!$_USER->Is_Moderator && !$_USER->Is_Admin)) {
                     </tr>
                     <tr>
                         <td align="center"><a href="/user/<?= $Report['username'] ?>"><?= $Report['username'] ?></a></td>
-                        <td align="center"><?= $Reason[$Report['number']] ?></td>
+                        <td align="center"><?= $Reason[$Report['number']] ?? $Report['number'] ?? 'Unknown' ?></td>
                         <?php if ($Report['additional_info']): ?>
                         <td align="center"><?= $Report['additional_info'] ?></td>
                         <?php endif ?>
