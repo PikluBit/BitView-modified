@@ -18,6 +18,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable($_SERVER['DOCUMENT_ROOT'] ?? __DIR__ . '/../');
 $dotenv->load();
+date_default_timezone_set(getenv('APP_TIMEZONE') ?: 'UTC');
 
 // Custom GUMP validators & filters
 GUMP::add_validator('NoHTML', function($field, $input, $param = NULL) {
@@ -130,4 +131,3 @@ unset($USERNAME);
 $_CONFIG = new Config();
 if ($isVerfied != 1 && !str_starts_with((string) $_SERVER['REQUEST_URI'], '/email_confirm') && !str_starts_with((string) $_SERVER['REQUEST_URI'], '/a/verify_email')) { header('location: /email_confirm'); }
 
-date_default_timezone_set(getenv('APP_TIMEZONE') ?: 'Europe/Berlin');

@@ -34,6 +34,8 @@ class DB {
             }
 
             $this->Connection = new PDO('mysql:host='.$this::$Connect["host"].';dbname='.$this::$Connect["database"].';charset='.$this::$Connect["charset"],$this::$Connect["username"],$this::$Connect["password"], $options);
+            $tz_offset = date('P');
+            $this->Connection->exec("SET time_zone = '{$tz_offset}'");
             return true;
         }
         catch (PDOException $e) {
