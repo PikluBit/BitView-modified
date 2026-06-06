@@ -4,7 +4,7 @@ class Inbox {
     {
     }
 
-    public function messages($Amount = 16, int $Type = null, int $Is_ByUser = null, int $Order = 1) {
+    public function messages($Amount = 16, ?int $Type = null, ?int $Is_ByUser = null, int $Order = 1) {
         if ($Order === 0) { $Order = "ORDER BY submit_on ASC"; } else { $Order = "ORDER BY submit_on DESC"; }
         if (is_a($Amount,"Pagination")) { $LIMIT = "LIMIT $Amount->From, $Amount->To"; } else { $LIMIT = "LIMIT $Amount"; }
         if ($Type == 2) { $Notification = "AND (is_notification = 1 OR type = 2 OR type = 4 OR type = 5)"; }
@@ -21,7 +21,7 @@ class Inbox {
         return false;
     }
 
-    public function send_message($Subject,$Message,$To,string $URL = "", int $Type = 0, int $Is_Notification = null) {
+    public function send_message($Subject,$Message,$To,string $URL = "", int $Type = 0, ?int $Is_Notification = null) {
 
         $Spam = $this->DB->execute("SELECT count(*) as amount FROM users_messages WHERE by_user = :USERNAME AND content = :CONTENT", true, [":USERNAME" => $this->Inbox_Owner->Username, ":CONTENT" => $Message],false)["amount"];
 

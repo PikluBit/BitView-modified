@@ -6,7 +6,7 @@ class Video
     public $Exists;
     public $URL;
 
-    public function __construct(string $URL, private readonly DB $DB, array $Data = null)
+    public function __construct(string $URL, private readonly DB $DB, ?array $Data = null)
     {
         $this->URL  = $URL;
         if (isset($Data)) {
