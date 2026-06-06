@@ -177,7 +177,7 @@ function dropdown(e) {
             <?php endif ?>>
         </a>
     <div id="masthead-utility" class="<?php if ($_USER->Logged_In) : ?>connected<?php endif ?>">
-        <a href="/browse" <?php if ($_PAGE["Page_Type"] == "browse"): ?>class="selected"<?php endif ?>><?= $LANGS['browse'] ?></a><a href="/my_videos_upload" class="split<?php if ($_PAGE["Page_Type"] == "upload"): ?> selected<?php endif ?>"><?= $LANGS['upload'] ?></a>
+        <a href="/browse" <?php if ($_PAGE["Page_Type"] == "browse"): ?>class="selected"<?php endif ?>><?= $LANGS['browse'] ?></a><a href="/my_videos_upload" class="<?php if ($_PAGE["Page_Type"] == "upload"): ?> selected<?php endif ?>"><?= $LANGS['upload'] ?></a><a href="/groups" class="split<?php if ($_PAGE["Page_Type"] == "groups" || $_PAGE["Page_Type"] == "my_groups"): ?> selected<?php endif ?>"><?= $LANGS['groups'] ?></a>
         <?php if (!$_USER->Logged_In) : ?>
         <a class="start" href="/signup"><?= $LANGS['signup'] ?></a><a class="end" href="/login"><?= $LANGS['login'] ?></a>
         <?php else: ?>
@@ -213,6 +213,10 @@ function dropdown(e) {
                 <tr>
                     <td><a class="yt-uix-button-menu-item" href="/my_account"><?= $LANGS['account'] ?></a></td>
                     <td><a class="yt-uix-button-menu-item" href="/my_favorites"><?= $LANGS['favorites'] ?></a></td>
+                </tr>
+                <tr>
+                    <td><a class="yt-uix-button-menu-item" href="/my_groups"><?= $LANGS['joinedgroups'] ?></a></td>
+                    <td></td>
                 </tr>
             </tbody></table>
         </div>

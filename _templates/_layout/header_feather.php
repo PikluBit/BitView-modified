@@ -23,7 +23,7 @@
             </div>
             <div id="masthead-nav-user">
                 <?php if (!$_USER->Logged_In): ?><a href="/login"><?= $LANGS['login'] ?></a> <?= $LANGS['or'] ?> <a href="/signup"><?= $LANGS['signup'] ?></a>
-                <?php else:?><div style="text-align: left;float: left;font-size: 12px;"><a style="font-size: 14px;" href="/user/<?= $_USER->Username ?>"><?= displayname($_USER->Username) ?></a><br><span style="font-weight: normal;color: #999;"><a href="/my_account"><?= $LANGS['account'] ?></a> | <a href="/logout"><?= $LANGS['logout'] ?></a></span></div><?php endif ?>
+                <?php else:?><div style="text-align: left;float: left;font-size: 12px;"><a style="font-size: 14px;" href="/user/<?= $_USER->Username ?>"><?= displayname($_USER->Username) ?></a><br><span style="font-weight: normal;color: #999;"><a href="/my_account"><?= $LANGS['account'] ?></a> | <a href="/my_groups"><?= $LANGS['joinedgroups'] ?></a> | <a href="/logout"><?= $LANGS['logout'] ?></a></span></div><?php endif ?>
                 <a class="yt-button yt-button-urgent yt-upload-feather" id="" style="margin-left: 16px;" href="/my_videos_upload"><span><?=$LANGS['upload']?></span></a>
             </div>
             <div id="masthead-end"></div>
