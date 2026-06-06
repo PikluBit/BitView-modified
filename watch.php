@@ -197,7 +197,7 @@ if ($_VIDEO->exists()) {
     if ($Video_Responses::$Videos) {
         $Video_Responses = $Video_Responses->fix_values(true, false);
     } else {
-        $Video_Responses = false;
+        $Video_Responses = [];
     }
 
     $Featured_Video = $DB->execute("SELECT * FROM videos LEFT JOIN users_block ON ((:USERNAME = users_block.blocker AND videos.uploaded_by = users_block.blocked) OR (:USERNAME = users_block.blocked AND videos.uploaded_by = users_block.blocker)) WHERE videos.featured = 1 AND status = 2 AND (users_block.blocker IS NULL) AND privacy = 1 AND is_deleted IS NULL AND uploaded_by_banned = 0 AND url != :URL ORDER BY videos.uploaded_on DESC LIMIT 1", false, [":USERNAME" => $_USER->Username, ":URL" => $_VIDEO->URL]);
